@@ -1,0 +1,242 @@
+
+
+
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:test_app/common/constants.dart';
+import 'package:test_app/common/styles.dart';
+import 'package:test_app/common/utils.dart';
+import 'package:test_app/models/UserProfileModel.dart';
+import 'package:test_app/widgets/AppBarWidget.dart';
+import 'package:test_app/widgets/ImageView.dart';
+import 'package:test_app/widgets/PhotoAdjustButton.dart';
+import 'package:test_app/screens/ProfilePreviewScreen.dart';
+import 'package:test_app/widgets/RoundButton.dart';
+import 'dart:ui' as ui;
+class PhotoPlanningScreen extends StatefulWidget {
+   PhotoPlanningScreen({
+    required this.userProfileModel,
+    Key? key}) : super(key: key);
+
+  UserProfileModel userProfileModel;
+
+  @override
+  _PhotoPlanningScreenState createState() => _PhotoPlanningScreenState();
+}
+
+class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
+
+  bool isPhotoEditingDoneForProfile = false;
+  bool isPhotoEditingDoneForCard = false;
+  bool showCardView = false;
+  final GlobalKey repaintKey = GlobalKey();
+  final GlobalKey repaintKeyForCard = GlobalKey();
+  Uint8List? _imageBytes;
+  int pointersCount =0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: AppBarView(
+            showSkip: false,
+            title: strPhotoPlanning,
+            onTapSkip: (){},)
+      ),
+      body: Container(
+        margin: EdgeInsets.symmetric(horizontal: 14),
+        child: _build(),
+      ),
+    );
+  }
+  void _navigateToProfilePreviewScreen(BuildContext context) {
+
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePreviewScreen(
+      isPreviewForCard: showCardView,
+      uint8list: _imageBytes,
+    )));
+
+  }
+  Widget _build(){
+   return Listener(
+     onPointerDown: (e) => setState(() => pointersCount++),
+     onPointerUp: (e) => setState(() => pointersCount--),
+     child: SingleChildScrollView(
+       physics: pointersCount == 2 ? const NeverScrollableScrollPhysics() : null,
+        child: Column(
+          children: [
+            _buildSwipeButton(),
+            Container(
+              height: MediaQuery.of(context).size.height * (showCardView?0.44 :0.42),
+              child: ZoomableImageView(
+                repaintKey: repaintKey,
+                repaintKeyForCard: repaintKeyForCard,
+                file: widget.userProfileModel.imageFile,
+                isCardView: showCardView,
+                isPhotoEditingDoneForProfile: isPhotoEditingDoneForProfile,
+                isPhotoEditingDoneForCard: isPhotoEditingDoneForCard,
+              ),
+            ),
+
+            InkWell(
+              onTap: (){
+                if(showCardView){
+                isPhotoEditingDoneForCard = true;
+                }else{
+                  isPhotoEditingDoneForProfile = true;
+                }
+                setState(() {});
+              },
+              child: PhotoAdjustButton(
+                btnColor: _getButtonColor(),
+              ),
+            ),
+            const SizedBox(height: 10,),
+            RoundButton(
+                btnOpacity: isPhotoEditingDoneForProfile && isPhotoEditingDoneForCard ?1.0:0.4,
+                bgColor: pink,
+                btnTextStyle: blackText14, btnText: strAddPhoto,
+                onTap: (){
+                  if(isPhotoEditingDoneForProfile && isPhotoEditingDoneForCard){
+                    Navigator.pop(context, {'ImageFileName':widget.userProfileModel.imageFileName,});
+                  }
+                }
+            ),
+            RoundButton(
+                btnOpacity: 1,
+                bgColor: grey,
+                btnTextStyle: whiteText14, btnText: strPreviewPhoto,
+                onTap: () async{
+                  captureWidgetScreenshot(context);
+
+                }
+            ),
+            RoundButton(
+                btnOpacity: 1,
+                bgColor: grey,
+                btnTextStyle: whiteText14, btnText: strSelectFromLibrary,
+                onTap: () async{
+                  widget.userProfileModel = await Utils().pickImage(widget.userProfileModel);
+                  isPhotoEditingDoneForProfile = false;
+                  isPhotoEditingDoneForCard = false;
+                  setState(() {});
+                }
+            ),
+            RoundButton(
+                btnOpacity: 0.5,
+                bgColor: grey,
+                btnTextStyle: whiteText14, btnText: strCancel,
+                onTap: (){
+
+                  Navigator.of(context).pop();
+                }
+            ),
+          ],
+        ),
+      ),
+   );
+  }
+
+
+
+  Widget _buildSwipeButton(){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 0,vertical: 0),
+      padding: EdgeInsets.symmetric(horizontal: 2.0,vertical: 2),
+      decoration: outlineGreyBorderAndBg,
+      child: Row(
+        
+        children: [
+          Expanded(
+            child: InkWell(
+              onTap: (){
+                showCardView = false;
+                setState(() {});
+              },
+              child: Container(
+            
+                height: 35,
+                decoration: showCardView ? bgRectGrey:blackBg,
+                child: Row(
+                  children: [
+                    Spacer(),
+                    Text(strProfile,
+                    style: greyText12,
+                    ),
+                    Spacer(),
+                    _buildDot(isPhotoEditingDoneForProfile ? pink:grey)
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          Expanded(
+            child: InkWell(
+              onTap: (){
+                showCardView = true;
+                setState(() {});
+              },
+              child: Container(
+                height: 35,
+                decoration:showCardView?blackBg:bgRectGrey ,
+                child: Row(
+                  children: [
+                    Spacer(),
+                    Text(strCard,
+                      style: greyText12,
+                    ),
+                    Spacer(),
+                    _buildDot(isPhotoEditingDoneForCard ? pink:grey)
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+
+      ),
+    );
+  }
+
+  Widget _buildDot(Color color){
+    return  Container(
+      margin: EdgeInsets.only(right: 10),
+      width: 4.0,
+      height: 4.0,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: color,
+      ),
+
+    );
+  }
+  Future<void> captureWidgetScreenshot(BuildContext context) async {
+    RenderRepaintBoundary boundary;
+    if(showCardView){
+      boundary = repaintKeyForCard.currentContext!.findRenderObject() as RenderRepaintBoundary;
+    }else{
+      boundary = repaintKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+    }
+
+    ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+    ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    if (byteData != null) {
+      _imageBytes = byteData.buffer.asUint8List();
+      _navigateToProfilePreviewScreen(context);
+
+    }
+  }
+  Color _getButtonColor(){
+    if(isPhotoEditingDoneForProfile && showCardView == false){
+      return pink;
+    }
+    if(isPhotoEditingDoneForCard && showCardView){
+      return pink;
+    }
+    return grey;
+  }
+}
