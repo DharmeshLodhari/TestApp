@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -6,45 +5,50 @@ import 'package:test_app/models/Country.dart';
 import 'package:test_app/models/UserProfileModel.dart';
 
 class UserQuizzDataProvider extends ChangeNotifier {
-
   UserProfileModel userProfileModel = UserProfileModel();
-  int QuestiionIndex = 0;
+  int questionIndex = 0;
   double? nextBtnOpacity = 0.4;
 
-  void setDoc(String docName){
+  void setDoc(String docName) {
     userProfileModel.selectedDoc = docName;
     notifyListeners();
   }
-  void setContactNumber(String number){
+
+  void setContactNumber(String number) {
     userProfileModel.contactNumber = number;
     notifyListeners();
   }
-  void setCountry(Country countryModel){
+
+  void setCountry(Country countryModel) {
     userProfileModel.selctedCountry = countryModel;
     notifyListeners();
   }
-  void setProfileImage(File file,String fileName){
+
+  void setProfileImage(File file, String fileName) {
     userProfileModel.imageFile = file;
     userProfileModel.imageFileName = fileName;
     notifyListeners();
   }
-  void increaseIndex(){
-    QuestiionIndex++;
+
+  void increaseIndex() {
+    questionIndex++;
     notifyListeners();
   }
-  void decreaseIndex(){
-    QuestiionIndex--;
+
+  void decreaseIndex() {
+    questionIndex--;
     notifyListeners();
   }
-  void setBtnOpacity(double opacity){
+
+  void setBtnOpacity(double opacity) {
     nextBtnOpacity = opacity;
     notifyListeners();
   }
-  void resetData(){
-     QuestiionIndex = 0;
-     nextBtnOpacity = 0.4;
-     userProfileModel = UserProfileModel();
-     notifyListeners();
-  }
 
+  void resetData() {
+    questionIndex = 0;
+    nextBtnOpacity = 0.4;
+    userProfileModel = UserProfileModel();
+    notifyListeners();
+  }
 }

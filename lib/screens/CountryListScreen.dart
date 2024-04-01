@@ -6,11 +6,14 @@ import 'package:test_app/models/Country.dart';
 import 'package:test_app/providers/CountryList.dart';
 
 class CountryListScreen extends StatefulWidget {
-  CountryListScreen({this.selectedCountry, this.onCountrySelect, Key? key})
-      : super(key: key);
+  const CountryListScreen({
+    this.selectedCountry,
+    this.onCountrySelect,
+    super.key,
+  });
 
-  Country? selectedCountry;
-  Function(Country country)? onCountrySelect;
+  final Country? selectedCountry;
+  final Function(Country country)? onCountrySelect;
 
   @override
   _CountryListScreenState createState() => _CountryListScreenState();

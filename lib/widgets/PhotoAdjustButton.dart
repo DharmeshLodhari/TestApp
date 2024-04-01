@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/common/styles.dart';
 
 class PhotoAdjustButton extends StatelessWidget {
-   PhotoAdjustButton({
+  const PhotoAdjustButton({
+    this.btnColor = const Color(0xFF6E6E73),
+    super.key,
+  });
 
-     this.btnColor = const Color(0xFF6E6E73),
-     Key? key}) : super(key: key);
-
-   Color btnColor;
-
-
+  final Color btnColor;
 
   @override
   Widget build(BuildContext context) {

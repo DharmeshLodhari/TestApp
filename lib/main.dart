@@ -6,17 +6,20 @@ import 'package:test_app/screens/QuizzStartScreen.dart';
 import 'package:test_app/theme/theme.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<CountryProvider>(create: (_) => CountryProvider()..fetchCountries()),
-        ChangeNotifierProvider<UserQuizzDataProvider>(create: (_) => UserQuizzDataProvider()),
+        ChangeNotifierProvider<CountryProvider>(
+            create: (_) => CountryProvider()..fetchCountries()),
+        ChangeNotifierProvider<UserQuizzDataProvider>(
+            create: (_) => UserQuizzDataProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -24,10 +27,9 @@ class MyApp extends StatelessWidget {
         theme: appTheme,
         initialRoute: '/',
         routes: {
-          '/': (context) => QuizzStartScreen(),
+          '/': (context) => const QuizzStartScreen(),
         },
       ),
     );
-
   }
 }

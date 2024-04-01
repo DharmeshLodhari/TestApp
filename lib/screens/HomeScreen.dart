@@ -20,7 +20,7 @@ import 'package:test_app/widgets/PrevAndNextButton.dart';
 import 'package:test_app/widgets/RoundButton.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -60,8 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             title: AppBarView(
-              showSkip:
-                  provider.QuestiionIndex == totalQuestions ? false : true,
+              showSkip: provider.questionIndex == totalQuestions ? false : true,
               title: strInformation,
               onTapSkip: () {
                 provider.increaseIndex();
@@ -106,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildQuestionSeries(UserQuizzDataProvider provider) {
-    if (provider.QuestiionIndex == 0) {
+    if (provider.questionIndex == 0) {
       return DropDownView(
         selectedValue: provider.userProfileModel.selectedDoc!,
         showDocsOptions: () {
@@ -181,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       );
     }
-    if (provider.QuestiionIndex == 1) {
+    if (provider.questionIndex == 1) {
       return Column(
         children: [
           DropDownView(
@@ -333,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    if (provider.QuestiionIndex == 2) {
+    if (provider.questionIndex == 2) {
       return DropDownView(
         hintText: strPhoto,
         icon: Icons.camera_alt,
@@ -375,7 +374,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildButtonForNextQsn(UserQuizzDataProvider provider) {
-    if (provider.QuestiionIndex == 0) {
+    if (provider.questionIndex == 0) {
       return RoundButton(
         btnTextStyle: whiteText14,
         bgColor: pink,
@@ -388,13 +387,13 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
     return PrevAndNextButtonView(
-      btnText: totalQuestions == provider.QuestiionIndex ? 'FINISH' : 'NEXT',
+      btnText: totalQuestions == provider.questionIndex ? 'FINISH' : 'NEXT',
       btnOpacity: provider.nextBtnOpacity,
       onTapPrevBtn: () {
         provider.decreaseIndex();
       },
       onTapNextBtn: () {
-        if (totalQuestions == provider.QuestiionIndex) {
+        if (totalQuestions == provider.questionIndex) {
           _navigateToQuizzEndScreen(context, provider);
           return;
         }
@@ -409,8 +408,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _navigateToContactAddScreen(
       BuildContext context, UserQuizzDataProvider provider) async {
-    var result = await Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => ContactNumberScreen()));
+    var result = await Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const ContactNumberScreen()));
     if (result['Number'] != null) {
       if (provider.userProfileModel.contactNumber!.isEmpty) {
         progressPercentage = Utils().calculatePercentage(progressPercentage);

@@ -3,18 +3,18 @@ import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
 
 class AppBarView extends StatelessWidget {
-  AppBarView({
+  const AppBarView({
     this.onTapSkip,
     required this.title,
     this.useExpanded = true,
     this.showSkip = true,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
-  Function()? onTapSkip;
-  String? title;
-  bool showSkip;
-  bool useExpanded;
+  final Function()? onTapSkip;
+  final String? title;
+  final bool showSkip;
+  final bool useExpanded;
 
   @override
   Widget build(BuildContext context) {

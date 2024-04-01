@@ -7,18 +7,18 @@ import 'package:test_app/widgets/CircularProgressIndicator.dart';
 import 'package:test_app/widgets/RoundButton.dart';
 
 class QuizzStartScreen extends StatelessWidget {
-  QuizzStartScreen(
-      {this.isQuizzCompleted = false,
-      this.progressPercentage = 0.0,
-      this.taskCompletePercentage = '0%',
-      this.docFillPercentage = 0.0,
-      Key? key})
-      : super(key: key);
+  const QuizzStartScreen({
+    this.isQuizzCompleted = false,
+    this.progressPercentage = 0.0,
+    this.taskCompletePercentage = '0%',
+    this.docFillPercentage = 0.0,
+    super.key,
+  });
 
-  bool isQuizzCompleted;
-  double progressPercentage;
-  double docFillPercentage;
-  String taskCompletePercentage;
+  final bool isQuizzCompleted;
+  final double progressPercentage;
+  final double docFillPercentage;
+  final String taskCompletePercentage;
   @override
   Widget build(BuildContext context) {
     return ColorfulSafeArea(

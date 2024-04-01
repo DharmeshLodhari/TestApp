@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:test_app/common/styles.dart';
 
 class PrevAndNextButtonView extends StatelessWidget {
-  PrevAndNextButtonView(
-      {this.onTapNextBtn,
-      this.onTapPrevBtn,
-      this.btnOpacity = 1.0,
-      this.btnText = 'NEXT',
-      Key? key})
-      : super(key: key);
+  const PrevAndNextButtonView({
+    this.onTapNextBtn,
+    this.onTapPrevBtn,
+    this.btnOpacity = 1.0,
+    this.btnText = 'NEXT',
+    super.key,
+  });
 
-  double? btnOpacity;
-  Function()? onTapPrevBtn;
-  Function()? onTapNextBtn;
+  final double? btnOpacity;
+  final Function()? onTapPrevBtn;
+  final Function()? onTapNextBtn;
 
-  String? btnText;
+  final String? btnText;
 
   @override
   Widget build(BuildContext context) {

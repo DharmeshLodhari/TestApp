@@ -1,6 +1,5 @@
 import 'dart:ui' as ui;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -16,8 +15,10 @@ import 'package:test_app/widgets/PhotoAdjustButton.dart';
 import 'package:test_app/widgets/RoundButton.dart';
 
 class PhotoPlanningScreen extends StatefulWidget {
-  PhotoPlanningScreen({required this.userProfileModel, Key? key})
-      : super(key: key);
+  PhotoPlanningScreen({
+    required this.userProfileModel,
+    super.key,
+  });
 
   UserProfileModel userProfileModel;
 

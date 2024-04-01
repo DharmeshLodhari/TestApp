@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 final appTheme = ThemeData(
-
-appBarTheme: AppBarTheme(
-  backgroundColor: Colors.black
-),
+  appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
   scaffoldBackgroundColor: Colors.black,
-  fontFamily: 'Montserrat'
+  fontFamily: 'Montserrat',
 );

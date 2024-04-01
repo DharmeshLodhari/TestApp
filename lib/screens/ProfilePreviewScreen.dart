@@ -1,16 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
 
 class ProfilePreviewScreen extends StatelessWidget {
-  ProfilePreviewScreen(
-      {this.isPreviewForCard = false, this.uint8list, Key? key})
-      : super(key: key);
-  bool isPreviewForCard;
-  Uint8List? uint8list;
+  const ProfilePreviewScreen({
+    this.isPreviewForCard = false,
+    this.uint8list,
+    super.key,
+  });
+  final bool isPreviewForCard;
+  final Uint8List? uint8list;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -159,7 +160,6 @@ class ProfilePreviewScreen extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 
   Widget _buildlightContainer(double width, double height) {

@@ -4,19 +4,19 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:test_app/common/styles.dart';
 
 class CircularProgressIndicatorWidget extends StatelessWidget {
-  CircularProgressIndicatorWidget({
-    Key? key,
+  const CircularProgressIndicatorWidget({
+    super.key,
     required this.percentage,
     required this.level,
     required this.progressValue,
     required this.progressTypeValue,
     required this.docFillPercentage,
-  }) : super(key: key);
-  double percentage;
-  double docFillPercentage;
-  String level;
-  String progressValue;
-  String progressTypeValue;
+  });
+  final double percentage;
+  final double docFillPercentage;
+  final String level;
+  final String progressValue;
+  final String progressTypeValue;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -113,11 +113,12 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
               startAngle: 270,
               endAngle: 270,
               radiusFactor: 0.65,
-              majorTickStyle: MajorTickStyle(
-                  length: 0.3,
-                  thickness: 3,
-                  lengthUnit: GaugeSizeUnit.factor,
-                  color: Colors.black),
+              majorTickStyle: const MajorTickStyle(
+                length: 0.3,
+                thickness: 3,
+                lengthUnit: GaugeSizeUnit.factor,
+                color: Colors.black,
+              ),
             )
           ],
         ),

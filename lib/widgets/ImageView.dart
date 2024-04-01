@@ -17,15 +17,15 @@ class ZoomableImageView extends StatelessWidget {
     this.repaintKeyForCard,
     super.key,
   });
-  GlobalKey? repaintKey;
-  GlobalKey? repaintKeyForCard;
-  bool isPhotoEditingDoneForProfile;
-  bool isPhotoEditingDoneForCard;
+  final GlobalKey? repaintKey;
+  final GlobalKey? repaintKeyForCard;
+  final bool isPhotoEditingDoneForProfile;
+  final bool isPhotoEditingDoneForCard;
   Color borderColor = grey;
-  File? file;
-  bool isCardView;
-  PhotoViewController profilePhotoViewController;
-  PhotoViewController cardPhotoViewController;
+  final File? file;
+  final bool isCardView;
+  final PhotoViewController profilePhotoViewController;
+  final PhotoViewController cardPhotoViewController;
 
   Widget _buildBody(BuildContext context) {
     return _buildImageShape(context);

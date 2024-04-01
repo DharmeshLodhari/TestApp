@@ -5,7 +5,7 @@ import 'package:test_app/widgets/AppBarWidget.dart';
 import 'package:test_app/widgets/RoundButton.dart';
 
 class ContactNumberScreen extends StatefulWidget {
-  const ContactNumberScreen({Key? key}) : super(key: key);
+  const ContactNumberScreen({super.key});
 
   @override
   _ContactNumberScreenState createState() => _ContactNumberScreenState();

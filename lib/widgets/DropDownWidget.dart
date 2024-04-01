@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:test_app/common/styles.dart';
 
 class DropDownView extends StatelessWidget {
-  DropDownView(
-      {this.showDocsOptions,
-      this.selectedValue = '',
-      this.showDropArrow = true,
-      this.hintText = 'Type',
-      this.icon = Icons.arrow_drop_down,
-      this.iconColor = const Color(0xFF6E6E73),
-      Key? key})
-      : super(key: key);
+  const DropDownView({
+    this.showDocsOptions,
+    this.selectedValue = '',
+    this.showDropArrow = true,
+    this.hintText = 'Type',
+    this.icon = Icons.arrow_drop_down,
+    this.iconColor = const Color(0xFF6E6E73),
+    super.key,
+  });
 
-  Function()? showDocsOptions;
-  String selectedValue;
-  bool showDropArrow;
-  String hintText;
-  IconData? icon;
-  Color iconColor;
+  final Function()? showDocsOptions;
+  final String selectedValue;
+  final bool showDropArrow;
+  final String hintText;
+  final IconData? icon;
+  final Color iconColor;
   @override
   Widget build(BuildContext context) {
     return Container(
