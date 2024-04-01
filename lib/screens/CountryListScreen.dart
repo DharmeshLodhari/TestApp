@@ -4,7 +4,6 @@ import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
 import 'package:test_app/models/Country.dart';
 import 'package:test_app/providers/CountryList.dart';
-import 'package:test_app/widgets/RoundButton.dart';
 
 class CountryListScreen extends StatefulWidget {
   CountryListScreen({this.selectedCountry, this.onCountrySelect, Key? key})
@@ -29,40 +28,36 @@ class _CountryListScreenState extends State<CountryListScreen> {
     final countryProvider = Provider.of<CountryProvider>(context);
 
     return Container(
-      margin: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const SizedBox(
-            width: 10,
-          ),
+          const SizedBox(width: 10),
           Center(
             child: Text(
               strCountry,
               style: pinkText22,
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Container(
             decoration: BoxDecoration(
               border: Border.all(
                 color: pink, // Border color
                 width: 1.0, // Border width
               ),
-              borderRadius: BorderRadius.circular(4.0), // Border radius
+              borderRadius: BorderRadius.circular(7), // Border radius
             ),
             child: TextFormField(
               cursorColor: pink,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search,
                   color: grey,
                 ),
-                contentPadding: EdgeInsets.all(10.0),
+                contentPadding: const EdgeInsets.all(10.0),
                 border: InputBorder.none,
                 hintText: 'Search',
                 hintStyle: whiteText14,
@@ -77,7 +72,7 @@ class _CountryListScreenState extends State<CountryListScreen> {
           ),
           Text(
             strCountries,
-            style: grey1Text14Bold,
+            style: greyText14Bold,
           ),
           const SizedBox(
             height: 10,

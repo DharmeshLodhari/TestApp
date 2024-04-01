@@ -256,19 +256,31 @@ class _HomeScreenState extends State<HomeScreen> {
                       backgroundColor: Colors.transparent,
                       resizeToAvoidBottomInset: false,
                       body: Container(
-                        margin: EdgeInsets.all(8.0),
+                        margin: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
                             Container(
                               height: MediaQuery.of(context).size.height * 0.80,
-                              decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(30.0),
-                                    topRight: Radius.circular(30.0),
-                                  )),
-                              margin:
-                                  EdgeInsets.only(top: 20, left: 20, right: 20),
+                              decoration: const BoxDecoration(
+                                color: Colors.black,
+                                border: Border(
+                                  bottom: BorderSide(color: Color(0xFF6E6E73)),
+                                  right: BorderSide(color: Color(0xFF6E6E73)),
+                                  left: BorderSide(color: Color(0xFF6E6E73)),
+                                  top: BorderSide(color: Color(0xFF6E6E73)),
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(30.0),
+                                  topRight: Radius.circular(30.0),
+                                  bottomLeft: Radius.circular(30.0),
+                                  bottomRight: Radius.circular(30.0),
+                                ),
+                              ),
+                              margin: const EdgeInsets.only(
+                                top: 2,
+                                left: 10,
+                                right: 10,
+                              ),
                               child: CountryListScreen(
                                 selectedCountry:
                                     provider.userProfileModel.selctedCountry,
@@ -276,17 +288,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                   if (provider
                                           .userProfileModel.selctedCountry ==
                                       null) {
-                                    progressPercentage = Utils()
-                                        .calculatePercentage(
-                                            progressPercentage);
-                                    taskCompletePercentage = Utils()
-                                        .convertPercentageToStr(
-                                            progressPercentage);
+                                    progressPercentage =
+                                        Utils().calculatePercentage(
+                                      progressPercentage,
+                                    );
+                                    taskCompletePercentage =
+                                        Utils().convertPercentageToStr(
+                                      progressPercentage,
+                                    );
                                     if (provider.userProfileModel.contactNumber!
                                         .isNotEmpty) {
-                                      docFillPercentage = Utils()
-                                          .calculatePercentageDocFill(
-                                              docFillPercentage);
+                                      docFillPercentage =
+                                          Utils().calculatePercentageDocFill(
+                                        docFillPercentage,
+                                      );
                                     }
                                   }
                                   provider.setCountry(country);
@@ -298,16 +313,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                               ),
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            const SizedBox(height: 20),
                             RoundButton(
-                                bgColor: black,
-                                btnTextStyle: whiteText12,
-                                btnText: 'Cancel',
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                })
+                              bgColor: black,
+                              btnTextStyle: greyText12,
+                              btnText: 'Cancel',
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                            )
                           ],
                         ),
                       ),

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 const Color white = Colors.white;
@@ -20,17 +18,16 @@ const TextStyle whiteText20 = TextStyle(
     fontFamily: 'Montserrat');
 const TextStyle whiteBoldText26 =
     TextStyle(color: white, fontSize: 26.0, fontWeight: FontWeight.bold);
-const TextStyle whiteText14 =
-    TextStyle(color: white, fontSize: 14.0, fontFamily: 'Montserrat');
+const TextStyle whiteText14 = TextStyle(color: white, fontSize: 14.0);
 const TextStyle whiteText14FF =
     TextStyle(color: white, fontSize: 14.0, fontFamily: 'ROBOTO');
 const TextStyle whiteText14Bold =
     TextStyle(color: white, fontSize: 14.0, fontWeight: FontWeight.bold);
-
+TextStyle greyText14Bold =
+    TextStyle(color: grey1, fontSize: 14.0, fontWeight: FontWeight.bold);
 const TextStyle whiteText12 = TextStyle(color: white, fontSize: 12.0);
 
-TextStyle blackText14 =
-    TextStyle(color: black, fontSize: 14.0, fontFamily: 'Montserrat');
+TextStyle blackText14 = TextStyle(color: black, fontSize: 14.0);
 TextStyle blackText14Bold =
     TextStyle(color: black, fontSize: 14.0, fontWeight: FontWeight.bold);
 
@@ -48,11 +45,6 @@ TextStyle greyText14 = TextStyle(
 TextStyle greyText14FF =
     TextStyle(color: grey, fontSize: 14.0, fontFamily: 'ROBOTO');
 TextStyle greyText10 = TextStyle(color: grey, fontSize: 10.0);
-
-TextStyle grey1Text14Bold =
-    TextStyle(color: grey1, fontSize: 14.0, fontWeight: FontWeight.bold);
-TextStyle greyText14Bold =
-    TextStyle(color: grey, fontSize: 14.0, fontWeight: FontWeight.bold);
 TextStyle greyText12 = TextStyle(color: grey, fontSize: 12.0);
 TextStyle greyText10FF =
     TextStyle(color: grey, fontSize: 10.0, fontFamily: 'ROBOTO');
@@ -73,17 +65,14 @@ BoxDecoration outlineBorderWithPinkBg = BoxDecoration(
     color: pink.withOpacity(0.17),
     borderRadius: const BorderRadius.all(Radius.circular(30)));
 
-BoxDecoration outlineGreyBorder({Color? color}) {
-  color ??= grey;
-  return BoxDecoration(
-      color: Colors.black,
-      border: Border.all(
-        width: 0.5,
-        color: color,
-        style: BorderStyle.solid,
-      ),
-      borderRadius: const BorderRadius.all(Radius.circular(25)));
-}
+BoxDecoration outlineGreyBorder = BoxDecoration(
+    color: Colors.black,
+    border: Border.all(
+      width: 0.5,
+      color: grey,
+      style: BorderStyle.solid,
+    ),
+    borderRadius: const BorderRadius.all(Radius.circular(20)));
 
 BoxDecoration outlineGreyBorderAndBg = BoxDecoration(
     color: grey.withOpacity(0.5),
