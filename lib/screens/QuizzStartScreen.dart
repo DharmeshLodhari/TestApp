@@ -1,3 +1,4 @@
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
@@ -20,54 +21,56 @@ class QuizzStartScreen extends StatelessWidget {
   String taskCompletePercentage;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(
-            child: Text(
-          isQuizzCompleted ? '' : strUserProfile,
-          style: whiteText14AppBar,
-        )),
-      ),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicatorWidget(
-                level: '',
-                percentage: progressPercentage,
-                progressValue: taskCompletePercentage,
-                progressTypeValue: '',
-                docFillPercentage: docFillPercentage,
-              ),
-              //const SizedBox(height: 30,),
-              Text(
-                _getTitleText(),
-                style: whiteText20,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(
-                _getInfoText(),
-                style: pinkText10,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-            ],
-          ),
-          RoundButton(
-            btnTextStyle: blackText14,
-            bgColor: white,
-            btnText: isQuizzCompleted ? strReStart : strStart,
-            onTap: () {
-              _navigateToHomeScreen(context);
-            },
-          )
-        ],
+    return ColorfulSafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Center(
+              child: Text(
+            isQuizzCompleted ? '' : strUserProfile,
+            style: whiteText14AppBar,
+          )),
+        ),
+        body: Stack(
+          alignment: Alignment.center,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicatorWidget(
+                  level: '',
+                  percentage: progressPercentage,
+                  progressValue: taskCompletePercentage,
+                  progressTypeValue: '',
+                  docFillPercentage: docFillPercentage,
+                ),
+                //const SizedBox(height: 30,),
+                Text(
+                  _getTitleText(),
+                  style: whiteText20,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  _getInfoText(),
+                  style: pinkText10,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+            RoundButton(
+              btnTextStyle: blackText14,
+              bgColor: white,
+              btnText: isQuizzCompleted ? strReStart : strStart,
+              onTap: () {
+                _navigateToHomeScreen(context);
+              },
+            )
+          ],
+        ),
       ),
     );
   }

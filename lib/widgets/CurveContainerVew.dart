@@ -2,28 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:test_app/common/styles.dart';
 
 class CurveContainerView extends StatelessWidget {
-   CurveContainerView({
-     required this.text,
-     required this.onTapOption,
-     Key? key}) : super(key: key);
+  const CurveContainerView(
+      {required this.text,
+      required this.onTapOption,
+      this.isCancelAction = false,
+      super.key});
 
-   String? text;
-  Function(String? docName) onTapOption;
+  final String? text;
+  final Function(String? docName) onTapOption;
+  final bool isCancelAction;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         onTapOption(text!);
       },
       child: Container(
-        margin: EdgeInsets.all(10.0),
+        margin: const EdgeInsets.all(10.0),
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width,
         height: 50,
-        decoration: outlineGreyBorder,
-        child: Text(text!,
-        style: whiteText14,
+        decoration: outlineGreyBorder(color: isCancelAction ? black : null),
+        child: Text(
+          text!,
+          style: isCancelAction ? greyText14Bold : whiteText14,
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/common/constants.dart';
@@ -26,7 +27,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> docList = ['Passport', 'National Card'];
+  List<String> docList = [
+    strPassport,
+    strNationalCard,
+    strCancel.toUpperCase()
+  ];
 
   UserProfileModel userProfileModel = UserProfileModel();
 
@@ -39,68 +44,71 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<UserQuizzDataProvider>(context);
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-          leading: GestureDetector(
-            child: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-              size: 16,
+    return ColorfulSafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+            leading: GestureDetector(
+              child: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+                size: 16,
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
             ),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: AppBarView(
-            showSkip: provider.QuestiionIndex == totalQuestions ? false : true,
-            title: strInformation,
-            onTapSkip: () {
-              provider.increaseIndex();
-            },
-          )),
-      body: Container(
-        margin: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                const SizedBox(
-                  width: 10,
-                ),
-                Flexible(
-                  child: Text(
-                    strDocumentDetails,
-                    style: whiteBoldText26,
+            title: AppBarView(
+              showSkip:
+                  provider.QuestiionIndex == totalQuestions ? false : true,
+              title: strInformation,
+              onTapSkip: () {
+                provider.increaseIndex();
+              },
+            )),
+        body: Container(
+          margin: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 10,
                   ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                CircularProgressIndicatorWidget(
-                  level: '',
-                  percentage: progressPercentage,
-                  progressValue: taskCompletePercentage,
-                  progressTypeValue: '',
-                  docFillPercentage: docFillPercentage,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            _buildQuestionSeries(provider),
-            Expanded(child: Container()),
-            _buildButtonForNextQsn(provider),
-          ],
+                  Flexible(
+                    child: Text(
+                      strDocumentDetails,
+                      style: whiteBoldText26,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  CircularProgressIndicatorWidget(
+                    level: '',
+                    percentage: progressPercentage,
+                    progressValue: taskCompletePercentage,
+                    progressTypeValue: '',
+                    docFillPercentage: docFillPercentage,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              _buildQuestionSeries(provider),
+              Expanded(child: Container()),
+              _buildButtonForNextQsn(provider),
+            ],
+          ),
         ),
       ),
     );
@@ -112,20 +120,38 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedValue: provider.userProfileModel.selectedDoc!,
         showDocsOptions: () {
           showModalBottomSheet<void>(
-              backgroundColor: Colors.transparent,
+              backgroundColor: black.withOpacity(0.95),
+              barrierColor: black.withOpacity(0.95),
               context: context,
+              elevation: 0,
+              // constraints: BoxConstraints(
+              //     maxHeight: MediaQuery.of(context).size.height,
+              //     minHeight: MediaQuery.of(context).size.height),
               builder: (BuildContext context) {
                 return Wrap(
                   children: [
                     Container(
-                      color: Colors.transparent,
+                      color: black.withOpacity(0.95),
                       child: Column(
                         children: [
                           ListView.builder(
                             itemBuilder: (context, index) {
+                              bool isCancelAction = false;
+
+                              if (docList[index].toLowerCase() ==
+                                  strCancel.toLowerCase()) {
+                                isCancelAction = true;
+                              }
+
                               return CurveContainerView(
+                                isCancelAction: isCancelAction,
                                 text: docList[index],
                                 onTapOption: (val) {
+                                  if (val?.toLowerCase() ==
+                                      strCancel.toLowerCase()) {
+                                    Navigator.of(context).pop();
+                                    return;
+                                  }
                                   if (provider
                                       .userProfileModel.selectedDoc!.isEmpty) {
                                     progressPercentage = Utils()
@@ -148,13 +174,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
 
                           //CurveContainerView(text: 'National Card',),
-                          RoundButton(
-                              bgColor: Colors.black,
-                              btnTextStyle: greyText14,
-                              btnText: 'CANCEL',
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              })
+                          // RoundButton(
+                          //     bgColor: Colors.black,
+                          //     btnTextStyle: greyText14,
+                          //     btnText: 'CANCEL',
+                          //     onTap: () {
+                          //       Navigator.of(context).pop();
+                          //     })
                         ],
                       ),
                     ),
@@ -297,7 +323,8 @@ class _HomeScreenState extends State<HomeScreen> {
       return DropDownView(
         hintText: strPhoto,
         icon: Icons.camera_alt,
-        iconColor:provider.userProfileModel.imageFileName!.isEmpty? grey: pink,
+        iconColor:
+            provider.userProfileModel.imageFileName!.isEmpty ? grey : pink,
         selectedValue: provider.userProfileModel.imageFileName!,
         showDocsOptions: () async {
           userProfileModel = await Utils().pickImage(userProfileModel);
