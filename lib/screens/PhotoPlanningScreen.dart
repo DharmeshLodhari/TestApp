@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
 import 'package:test_app/common/utils.dart';
@@ -29,6 +30,8 @@ class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
   bool isPhotoEditingDoneForCard = false;
   bool showCardView = false;
   final GlobalKey repaintKey = GlobalKey();
+  PhotoViewController profilePhotoViewController = PhotoViewController();
+  PhotoViewController cardPhotoViewController = PhotoViewController();
   final GlobalKey repaintKeyForCard = GlobalKey();
   Uint8List? _imageBytes;
   int pointersCount = 0;
@@ -76,15 +79,16 @@ class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
             _buildSwipeButton(),
             SizedBox(
               height: MediaQuery.of(context).size.height *
-                  (showCardView ? 0.44 : 0.42),
+                  (showCardView ? 0.42 : 0.45),
               child: ZoomableImageView(
-                repaintKey: repaintKey,
-                repaintKeyForCard: repaintKeyForCard,
-                file: widget.userProfileModel.imageFile,
-                isCardView: showCardView,
-                isPhotoEditingDoneForProfile: isPhotoEditingDoneForProfile,
-                isPhotoEditingDoneForCard: isPhotoEditingDoneForCard,
-              ),
+                  repaintKey: repaintKey,
+                  repaintKeyForCard: repaintKeyForCard,
+                  file: widget.userProfileModel.imageFile,
+                  isCardView: showCardView,
+                  isPhotoEditingDoneForProfile: isPhotoEditingDoneForProfile,
+                  isPhotoEditingDoneForCard: isPhotoEditingDoneForCard,
+                  profilePhotoViewController: profilePhotoViewController,
+                  cardPhotoViewController: cardPhotoViewController),
             ),
             InkWell(
               onTap: () {
