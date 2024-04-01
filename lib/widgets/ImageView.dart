@@ -4,18 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
-import 'package:zoom_hover_pinch_image/zoom_hover_pinch_image.dart';
 
 class ZoomableImageView extends StatelessWidget {
-  ZoomableImageView(
-      {required this.file,
-      required this.isCardView,
-      this.isPhotoEditingDoneForProfile = false,
-      this.isPhotoEditingDoneForCard = false,
-      this.repaintKey,
-      this.repaintKeyForCard,
-      Key? key})
-      : super(key: key);
+  ZoomableImageView({
+    required this.file,
+    required this.isCardView,
+    required this.profilePhotoViewController,
+    required this.cardPhotoViewController,
+    this.isPhotoEditingDoneForProfile = false,
+    this.isPhotoEditingDoneForCard = false,
+    this.repaintKey,
+    this.repaintKeyForCard,
+    super.key,
+  });
   GlobalKey? repaintKey;
   GlobalKey? repaintKeyForCard;
   bool isPhotoEditingDoneForProfile;
@@ -23,25 +24,28 @@ class ZoomableImageView extends StatelessWidget {
   Color borderColor = grey;
   File? file;
   bool isCardView;
+  PhotoViewController profilePhotoViewController;
+  PhotoViewController cardPhotoViewController;
 
-  Widget _buildBody() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-      child: Center(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(isCardView ? 0.0 : 150),
-            ),
-            border: Border.all(
-              color: borderColor,
-              width: isCardView ? 10.0 : 4.0,
-            ),
-          ),
-          child: _buildImageShape(),
-        ),
-      ),
-    );
+  Widget _buildBody(BuildContext context) {
+    return _buildImageShape(context);
+    // return Padding(
+    //   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+    //   child: Center(
+    //     child: Container(
+    //       decoration: BoxDecoration(
+    //         borderRadius: BorderRadius.all(
+    //           Radius.circular(isCardView ? 0.0 : 150),
+    //         ),
+    //         border: Border.all(
+    //           color: borderColor,
+    //           width: isCardView ? 10.0 : 4.0,
+    //         ),
+    //       ),
+    //       child: ,
+    //     ),
+    //   ),
+    // );
   }
   /* void _handleRotationUpdate(DragUpdateDetails details) {
      setState(() {
@@ -49,17 +53,87 @@ class ZoomableImageView extends StatelessWidget {
      });
    }*/
 
-  Widget _buildImageShape() {
+  Widget _buildImageShape(BuildContext context) {
+    return IndexedStack(
+      index: isCardView ? 0 : 1,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
+          child: Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.65,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(0),
+                ),
+                border: Border.all(
+                  color: borderColor,
+                  width: 10.0,
+                ),
+              ),
+              child: RepaintBoundary(
+                key: repaintKeyForCard,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(0.0),
+                  child: PhotoView(
+                    controller: cardPhotoViewController,
+                    imageProvider: FileImage(
+                      file!,
+                    ),
+                    enableRotation: true,
+                    wantKeepAlive: true,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(200),
+                ),
+                border: Border.all(
+                  color: borderColor,
+                  width: 4.0,
+                ),
+              ),
+              child: RepaintBoundary(
+                key: repaintKey,
+                child: CircleAvatar(
+                  radius: 150,
+                  child: ClipOval(
+                    child: PhotoView(
+                      controller: profilePhotoViewController,
+                      imageProvider: FileImage(
+                        file!,
+                      ),
+                      enableRotation: true,
+                      wantKeepAlive: true,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
     if (isCardView) {
       return RepaintBoundary(
         key: repaintKeyForCard,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(0.0),
-          child: Zoom(
-            child: Image.file(
+          child: PhotoView(
+            controller: cardPhotoViewController,
+            imageProvider: FileImage(
               file!,
-              fit: BoxFit.cover,
             ),
+            enableRotation: true,
+            wantKeepAlive: true,
           ),
         ),
       );
@@ -70,7 +144,12 @@ class ZoomableImageView extends StatelessWidget {
         radius: 120,
         child: ClipOval(
           child: PhotoView(
-            imageProvider: FileImage(file!),
+            controller: profilePhotoViewController,
+            imageProvider: FileImage(
+              file!,
+            ),
+            enableRotation: true,
+            wantKeepAlive: true,
           ),
         ),
       ),
@@ -87,7 +166,7 @@ class ZoomableImageView extends StatelessWidget {
     }
     return Column(
       children: [
-        Expanded(child: _buildBody()),
+        Expanded(child: _buildBody(context)),
         Text(
           _getPhotoAdjustText(),
           style: pinkText10,
