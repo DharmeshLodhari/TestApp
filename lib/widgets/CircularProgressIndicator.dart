@@ -71,7 +71,7 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
     return ClipRect(
       child: Align(
         alignment: Alignment.bottomCenter,
-        widthFactor: 0.7,
+        widthFactor: 0.6,
         child: SfRadialGauge(
           // backgroundColor: Colors.orange,
           axes: <RadialAxis>[
