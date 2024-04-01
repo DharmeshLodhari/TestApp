@@ -3,16 +3,25 @@ import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
 
 class AppBarView extends StatelessWidget {
-  AppBarView(
-      {this.onTapSkip, required this.title, this.showSkip = true, Key? key})
-      : super(key: key);
+  AppBarView({
+    this.onTapSkip,
+    required this.title,
+    this.useExpanded = true,
+    this.showSkip = true,
+    Key? key,
+  }) : super(key: key);
 
   Function()? onTapSkip;
   String? title;
   bool showSkip;
+  bool useExpanded;
 
   @override
   Widget build(BuildContext context) {
+    if (useExpanded == false) {
+      return titleText();
+    }
+
     return Row(
       children: [
         Expanded(child: Container()),
@@ -37,6 +46,13 @@ class AppBarView extends StatelessWidget {
               : Container(),
         ),
       ],
+    );
+  }
+
+  titleText() {
+    return Text(
+      title!,
+      style: whiteText14AppBar,
     );
   }
 }

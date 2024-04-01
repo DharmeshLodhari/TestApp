@@ -1,17 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:test_app/common/styles.dart';
 
-
 class DropDownView extends StatelessWidget {
-   DropDownView({
-     this.showDocsOptions,
-     this.selectedValue= '',
-     this.showDropArrow = true,
-     this.hintText ='Type',
-     this.icon = Icons.arrow_drop_down,
-     this.iconColor = const Color(0xFF6E6E73),
-     Key? key}) : super(key: key);
+  DropDownView(
+      {this.showDocsOptions,
+      this.selectedValue = '',
+      this.showDropArrow = true,
+      this.hintText = 'Type',
+      this.icon = Icons.arrow_drop_down,
+      this.iconColor = const Color(0xFF6E6E73),
+      Key? key})
+      : super(key: key);
 
   Function()? showDocsOptions;
   String selectedValue;
@@ -23,41 +22,52 @@ class DropDownView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       height: 50,
-      decoration: selectedValue.isEmpty ? outlineBorder : outlineBorderWithPinkBg,
+      decoration:
+          selectedValue.isEmpty ? outlineBorder : outlineBorderWithPinkBg,
       child: _buildChildWidgetView(context),
     );
   }
-  Widget _buildChildWidgetView(BuildContext context){
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 10),
-      child: InkWell(
-        onTap: showDocsOptions,
+
+  Widget _buildChildWidgetView(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(30),
+      highlightColor: black.withOpacity(0.95),
+      onTap: showDocsOptions,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
         child: Row(
           children: [
             _buildViewWithValue(),
             Expanded(child: Container()),
-            if(showDropArrow)
-            Icon(icon,color: iconColor,)
+            if (showDropArrow)
+              Icon(
+                icon,
+                color: iconColor,
+              )
           ],
         ),
       ),
     );
   }
-  Widget _buildViewWithValue(){
-    if(selectedValue.isEmpty){
-      return  Text(hintText,
+
+  Widget _buildViewWithValue() {
+    if (selectedValue.isEmpty) {
+      return Text(
+        hintText,
         style: greyText14FF,
       );
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(hintText,
+        Text(
+          hintText,
           style: greyText10FF,
         ),
-        Text(selectedValue,
+        Text(
+          selectedValue,
           style: whiteText12,
         ),
       ],
