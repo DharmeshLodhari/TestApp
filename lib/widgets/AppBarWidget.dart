@@ -26,7 +26,7 @@ class AppBarView extends StatelessWidget {
       children: [
         Expanded(child: Container()),
         Text(
-          title!,
+          title ?? "",
           style: whiteText14AppBar,
         ),
         Expanded(child: Container()),
@@ -51,7 +51,7 @@ class AppBarView extends StatelessWidget {
 
   titleText() {
     return Text(
-      title!,
+      title ?? "",
       style: whiteText14AppBar,
     );
   }

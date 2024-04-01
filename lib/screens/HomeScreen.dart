@@ -48,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+            centerTitle: true,
             leading: GestureDetector(
               child: const Icon(
                 Icons.arrow_back_ios,
@@ -72,23 +73,17 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Row(
                 children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
+                  const SizedBox(width: 10),
                   Flexible(
                     child: Text(
                       strDocumentDetails,
                       style: whiteBoldText26,
                     ),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
+                  const SizedBox(width: 10),
                   CircularProgressIndicatorWidget(
                     level: '',
                     percentage: progressPercentage,
@@ -96,14 +91,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     progressTypeValue: '',
                     docFillPercentage: docFillPercentage,
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
+                  const SizedBox(width: 10),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               _buildQuestionSeries(provider),
               Expanded(child: Container()),
               _buildButtonForNextQsn(provider),
@@ -201,9 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
               _navigateToContactAddScreen(context, provider);
             },
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           DropDownView(
             hintText: strCountry,
             selectedValue: provider.userProfileModel.selctedCountry == null
@@ -348,9 +337,10 @@ class _HomeScreenState extends State<HomeScreen> {
       return DropDownView(
         hintText: strPhoto,
         icon: Icons.camera_alt,
-        iconColor:
-            provider.userProfileModel.imageFileName!.isEmpty ? grey : pink,
-        selectedValue: provider.userProfileModel.imageFileName!,
+        iconColor: provider.userProfileModel.imageFileName?.isEmpty ?? false
+            ? grey
+            : pink,
+        selectedValue: provider.userProfileModel.imageFileName ?? "",
         showDocsOptions: () async {
           userProfileModel = await Utils().pickImage(userProfileModel);
           if (userProfileModel.imageFile != null) {

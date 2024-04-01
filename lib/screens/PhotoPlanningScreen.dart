@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -36,14 +37,15 @@ class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          title: AppBarView(
-            showSkip: false,
-            useExpanded: false,
-            title: strPhotoPlanning,
-            onTapSkip: () {},
-          )),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        title: AppBarView(
+          showSkip: false,
+          useExpanded: false,
+          title: strPhotoPlanning,
+          onTapSkip: () {},
+        ),
+      ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 14),
         child: _build(),
@@ -52,11 +54,14 @@ class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
   }
 
   void _navigateToProfilePreviewScreen(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
+    Navigator.of(context).push(
+      MaterialPageRoute(
         builder: (context) => ProfilePreviewScreen(
-              isPreviewForCard: showCardView,
-              uint8list: _imageBytes,
-            )));
+          isPreviewForCard: showCardView,
+          uint8list: _imageBytes,
+        ),
+      ),
+    );
   }
 
   Widget _build() {
@@ -94,53 +99,54 @@ class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
                 btnColor: _getButtonColor(),
               ),
             ),
-            const SizedBox(
-              height: 10,
+            const SizedBox(height: 10),
+            RoundButton(
+              btnOpacity:
+                  isPhotoEditingDoneForProfile && isPhotoEditingDoneForCard
+                      ? 1.0
+                      : 0.4,
+              bgColor: pink,
+              btnTextStyle: blackText14,
+              btnText: strAddPhoto,
+              onTap: () {
+                if (isPhotoEditingDoneForProfile && isPhotoEditingDoneForCard) {
+                  Navigator.pop(context, {
+                    'ImageFileName': widget.userProfileModel.imageFileName,
+                  });
+                }
+              },
             ),
             RoundButton(
-                btnOpacity:
-                    isPhotoEditingDoneForProfile && isPhotoEditingDoneForCard
-                        ? 1.0
-                        : 0.4,
-                bgColor: pink,
-                btnTextStyle: blackText14,
-                btnText: strAddPhoto,
-                onTap: () {
-                  if (isPhotoEditingDoneForProfile &&
-                      isPhotoEditingDoneForCard) {
-                    Navigator.pop(context, {
-                      'ImageFileName': widget.userProfileModel.imageFileName,
-                    });
-                  }
-                }),
+              btnOpacity: 1,
+              bgColor: grey,
+              btnTextStyle: whiteText14,
+              btnText: strPreviewPhoto,
+              onTap: () async {
+                captureWidgetScreenshot(context);
+              },
+            ),
             RoundButton(
-                btnOpacity: 1,
-                bgColor: grey,
-                btnTextStyle: whiteText14,
-                btnText: strPreviewPhoto,
-                onTap: () async {
-                  captureWidgetScreenshot(context);
-                }),
+              btnOpacity: 1,
+              bgColor: grey,
+              btnTextStyle: whiteText14,
+              btnText: strSelectFromLibrary,
+              onTap: () async {
+                widget.userProfileModel =
+                    await Utils().pickImage(widget.userProfileModel);
+                isPhotoEditingDoneForProfile = false;
+                isPhotoEditingDoneForCard = false;
+                setState(() {});
+              },
+            ),
             RoundButton(
-                btnOpacity: 1,
-                bgColor: grey,
-                btnTextStyle: whiteText14,
-                btnText: strSelectFromLibrary,
-                onTap: () async {
-                  widget.userProfileModel =
-                      await Utils().pickImage(widget.userProfileModel);
-                  isPhotoEditingDoneForProfile = false;
-                  isPhotoEditingDoneForCard = false;
-                  setState(() {});
-                }),
-            RoundButton(
-                btnOpacity: 0.5,
-                bgColor: grey,
-                btnTextStyle: whiteText14,
-                btnText: strCancel,
-                onTap: () {
-                  Navigator.of(context).pop();
-                }),
+              btnOpacity: 0.5,
+              bgColor: grey,
+              btnTextStyle: whiteText14,
+              btnText: strCancel,
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
           ],
         ),
       ),
@@ -156,6 +162,8 @@ class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
         children: [
           Expanded(
             child: InkWell(
+              highlightColor: black.withOpacity(0.95),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
               onTap: () {
                 showCardView = false;
                 setState(() {});
@@ -179,6 +187,8 @@ class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
           ),
           Expanded(
             child: InkWell(
+              highlightColor: black.withOpacity(0.95),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
               onTap: () {
                 showCardView = true;
                 setState(() {});

@@ -38,9 +38,9 @@ class DropDownView extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildViewWithValue(),
-            Expanded(child: Container()),
+            Expanded(child: _buildViewWithValue()),
             if (showDropArrow)
               Icon(
                 icon,
@@ -68,6 +68,7 @@ class DropDownView extends StatelessWidget {
         ),
         Text(
           selectedValue,
+          overflow: TextOverflow.ellipsis,
           style: whiteText12,
         ),
       ],
