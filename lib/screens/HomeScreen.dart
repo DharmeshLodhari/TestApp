@@ -264,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
       return DropDownView(
         hintText: strPhoto,
         icon: Icons.camera_alt,
-        iconColor: pink,
+        iconColor:provider.userProfileModel.imageFileName!.isEmpty? grey: pink,
         selectedValue: provider.userProfileModel.imageFileName!,
         showDocsOptions: () async{
            userProfileModel = await Utils().pickImage(userProfileModel);

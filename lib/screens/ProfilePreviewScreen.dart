@@ -65,14 +65,16 @@ class ProfilePreviewScreen extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (context,index){
           return Container(
-            padding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 8.0),
-            margin: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 8.0),
+            margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
             color: pink,
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  height: 100,
+                  height: 85,
                   width: 100,
+                  margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius:  BorderRadius.all(
                       Radius.circular(0),
@@ -80,7 +82,7 @@ class ProfilePreviewScreen extends StatelessWidget {
                     color: black,
                     border: Border.all(
                       color: white,
-                      width: 2.0,
+                      width: 4.0,
 
                     ),
                   ),
@@ -91,6 +93,18 @@ class ProfilePreviewScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(width: 10,),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    _buildlightContainer(200,10),
+                    _buildlightContainer(150,10),
+                    _buildlightContainer(MediaQuery.of(context).size.width * 0.6,10),
+                    _buildlightContainer(MediaQuery.of(context).size.width * 0.6,10),
+                    _buildlightContainer(MediaQuery.of(context).size.width * 0.6,10),
+                  ],
+                )
 
 
               ],
@@ -133,5 +147,21 @@ class ProfilePreviewScreen extends StatelessWidget {
          ],
        ),
      );;
+  }
+
+  Widget _buildlightContainer(double width,double height){
+    return Container(
+      height: height,
+      width: width,
+      margin: EdgeInsets.all(4.0),
+      decoration: BoxDecoration(
+        borderRadius:  BorderRadius.all(
+          Radius.circular(6),
+        ),
+        color: black.withOpacity(0.1),
+
+      ),
+
+    );
   }
 }
