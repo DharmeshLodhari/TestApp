@@ -29,29 +29,7 @@ class ZoomableImageView extends StatelessWidget {
 
   Widget _buildBody(BuildContext context) {
     return _buildImageShape(context);
-    // return Padding(
-    //   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-    //   child: Center(
-    //     child: Container(
-    //       decoration: BoxDecoration(
-    //         borderRadius: BorderRadius.all(
-    //           Radius.circular(isCardView ? 0.0 : 150),
-    //         ),
-    //         border: Border.all(
-    //           color: borderColor,
-    //           width: isCardView ? 10.0 : 4.0,
-    //         ),
-    //       ),
-    //       child: ,
-    //     ),
-    //   ),
-    // );
   }
-  /* void _handleRotationUpdate(DragUpdateDetails details) {
-     setState(() {
-       _currentRotation += details.delta.dx / 100; // Adjust sensitivity as needed
-     });
-   }*/
 
   Widget _buildImageShape(BuildContext context) {
     return IndexedStack(
@@ -121,38 +99,6 @@ class ZoomableImageView extends StatelessWidget {
           ),
         )
       ],
-    );
-    if (isCardView) {
-      return RepaintBoundary(
-        key: repaintKeyForCard,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(0.0),
-          child: PhotoView(
-            controller: cardPhotoViewController,
-            imageProvider: FileImage(
-              file!,
-            ),
-            enableRotation: true,
-            wantKeepAlive: true,
-          ),
-        ),
-      );
-    }
-    return RepaintBoundary(
-      key: repaintKey,
-      child: CircleAvatar(
-        radius: 120,
-        child: ClipOval(
-          child: PhotoView(
-            controller: profilePhotoViewController,
-            imageProvider: FileImage(
-              file!,
-            ),
-            enableRotation: true,
-            wantKeepAlive: true,
-          ),
-        ),
-      ),
     );
   }
 
