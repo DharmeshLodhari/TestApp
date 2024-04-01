@@ -115,7 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         itemBuilder: (context,index){
 
-                          return  CurveContainerView(text: docList[index],
+                          return  CurveContainerView(
+                            text: docList[index],
                             onTapOption: (val){
                             if(provider.userProfileModel.selectedDoc!.isEmpty){
                               progressPercentage = Utils().calculatePercentage(progressPercentage);
