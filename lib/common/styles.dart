@@ -11,26 +11,17 @@ Color grey1 = const Color(0xFFAEAEB2);
 
 Color lightBlack = const Color(0xFF333333);
 
-const TextStyle whiteText14AppBar =
-    TextStyle(color: white, fontSize: 14.0, fontWeight: FontWeight.bold);
-const TextStyle whiteText20 = TextStyle(
-    color: white,
-    fontSize: 24.0,
-    fontWeight: FontWeight.bold,
-    fontFamily: 'Montserrat');
-const TextStyle whiteBoldText26 =
-    TextStyle(color: white, fontSize: 26.0, fontWeight: FontWeight.bold);
-const TextStyle whiteText14 = TextStyle(color: white, fontSize: 14.0);
-const TextStyle whiteText14FF =
-    TextStyle(color: white, fontSize: 14.0, fontFamily: 'ROBOTO');
-const TextStyle whiteText14Bold =
-    TextStyle(color: white, fontSize: 14.0, fontWeight: FontWeight.bold);
+const TextStyle whiteText14AppBar = TextStyle(color: white, fontSize: 14.0,fontWeight: FontWeight.bold);
+const TextStyle whiteText20 = TextStyle(color: white, fontSize: 24.0,fontWeight: FontWeight.bold,fontFamily: 'Montserrat');
+const TextStyle whiteBoldText26 = TextStyle(color: white, fontSize: 26.0,fontWeight: FontWeight.bold);
+const TextStyle whiteText14 = TextStyle(color: white, fontSize: 14.0,fontFamily: 'Montserrat');
+const TextStyle whiteText14FF = TextStyle(color: white, fontSize: 14.0,fontFamily: 'ROBOTO');
+const TextStyle whiteText14Bold = TextStyle(color: white, fontSize: 14.0,fontWeight: FontWeight.bold);
 
 const TextStyle whiteText12 = TextStyle(color: white, fontSize: 12.0);
 
-TextStyle blackText14 = TextStyle(color: black, fontSize: 14.0);
-TextStyle blackText14Bold =
-    TextStyle(color: black, fontSize: 14.0, fontWeight: FontWeight.bold);
+ TextStyle blackText14 = TextStyle(color: black, fontSize: 14.0,fontFamily: 'Montserrat');
+ TextStyle blackText14Bold = TextStyle(color: black, fontSize: 14.0,fontWeight: FontWeight.bold);
 
 TextStyle pinkText10 =
     TextStyle(color: pink, fontSize: 13.0, fontFamily: 'ROBOTO');

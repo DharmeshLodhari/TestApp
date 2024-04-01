@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
 import 'package:zoom_hover_pinch_image/zoom_hover_pinch_image.dart';
@@ -31,21 +32,19 @@ class ZoomableImageView extends StatelessWidget {
      return Padding(
 
        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-       child: SingleChildScrollView(
-         physics: NeverScrollableScrollPhysics(),
-         child: Center(
-           child: Container(
-             decoration: BoxDecoration(
-               borderRadius:  BorderRadius.all(
-                 Radius.circular(isCardView ?0.0:150),
-               ),
-               border: Border.all(
-                 color: borderColor,
-                 width: isCardView ?10.0:4.0,
-               ),
+       child: Center(
+         child: Container(
+           decoration: BoxDecoration(
+
+             borderRadius:  BorderRadius.all(
+               Radius.circular(isCardView ?0.0:150),
              ),
-             child: _buildImageShape(),
+             border: Border.all(
+               color: borderColor,
+               width: isCardView ?10.0:4.0,
+             ),
            ),
+           child: _buildImageShape(),
          ),
        ),
      );
@@ -60,13 +59,14 @@ class ZoomableImageView extends StatelessWidget {
      if(isCardView){
        return RepaintBoundary(
          key: repaintKeyForCard,
+
          child: ClipRRect(
+
            borderRadius: BorderRadius.circular(0.0),
-           child: Zoom(
+           child: PhotoView(
 
-             child: Image.file( file!,
-
-               fit: BoxFit.cover,),
+             imageProvider:FileImage(file!)
+             //Image.file( file!, fit: BoxFit.cover,),
            ),
          ),
        );
@@ -74,11 +74,12 @@ class ZoomableImageView extends StatelessWidget {
      return RepaintBoundary(
        key: repaintKey,
        child: ClipOval(
-         child: Zoom(
-
-           child: Image.file( file!,
-
-             fit: BoxFit.cover,),
+         child:
+         PhotoView(
+           maxScale: 4,
+             minScale:1 ,
+             imageProvider:FileImage(file!)
+           //Image.file( file!, fit: BoxFit.cover,),
          ),
        ),
      );
