@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:colorful_safe_area/colorful_safe_area.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/common/constants.dart';
@@ -251,77 +252,88 @@ class _HomeScreenState extends State<HomeScreen> {
               showDialog(
                   context: context,
                   barrierDismissible: true,
+                  barrierColor: black.withOpacity(0.95),
                   builder: (BuildContext context) {
-                    return Scaffold(
-                      backgroundColor: Colors.transparent,
-                      resizeToAvoidBottomInset: false,
-                      body: Container(
+                    return Material(
+                      color: black.withOpacity(0.95),
+                      child: Container(
                         margin: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.80,
-                              decoration: const BoxDecoration(
-                                color: Colors.black,
-                                border: Border(
-                                  bottom: BorderSide(color: Color(0xFF6E6E73)),
-                                  right: BorderSide(color: Color(0xFF6E6E73)),
-                                  left: BorderSide(color: Color(0xFF6E6E73)),
-                                  top: BorderSide(color: Color(0xFF6E6E73)),
+                            Expanded(
+                              child: Container(
+                                // height:
+                                //     MediaQuery.of(context).size.height * 0.80,
+                                decoration: const BoxDecoration(
+                                  color: Colors.black,
+                                  border: Border(
+                                    bottom:
+                                        BorderSide(color: Color(0xFF6E6E73)),
+                                    right: BorderSide(color: Color(0xFF6E6E73)),
+                                    left: BorderSide(color: Color(0xFF6E6E73)),
+                                    top: BorderSide(color: Color(0xFF6E6E73)),
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30.0),
+                                    topRight: Radius.circular(30.0),
+                                    bottomLeft: Radius.circular(30.0),
+                                    bottomRight: Radius.circular(30.0),
+                                  ),
                                 ),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(30.0),
-                                  topRight: Radius.circular(30.0),
-                                  bottomLeft: Radius.circular(30.0),
-                                  bottomRight: Radius.circular(30.0),
+                                margin: const EdgeInsets.only(
+                                  top: 2,
+                                  left: 10,
+                                  right: 10,
                                 ),
-                              ),
-                              margin: const EdgeInsets.only(
-                                top: 2,
-                                left: 10,
-                                right: 10,
-                              ),
-                              child: CountryListScreen(
-                                selectedCountry:
-                                    provider.userProfileModel.selctedCountry,
-                                onCountrySelect: (country) {
-                                  if (provider
-                                          .userProfileModel.selctedCountry ==
-                                      null) {
-                                    progressPercentage =
-                                        Utils().calculatePercentage(
-                                      progressPercentage,
-                                    );
-                                    taskCompletePercentage =
-                                        Utils().convertPercentageToStr(
-                                      progressPercentage,
-                                    );
+                                child: CountryListScreen(
+                                  selectedCountry:
+                                      provider.userProfileModel.selctedCountry,
+                                  onCountrySelect: (country) {
+                                    if (provider
+                                            .userProfileModel.selctedCountry ==
+                                        null) {
+                                      progressPercentage =
+                                          Utils().calculatePercentage(
+                                        progressPercentage,
+                                      );
+                                      taskCompletePercentage =
+                                          Utils().convertPercentageToStr(
+                                        progressPercentage,
+                                      );
+                                      if (provider.userProfileModel
+                                          .contactNumber!.isNotEmpty) {
+                                        docFillPercentage =
+                                            Utils().calculatePercentageDocFill(
+                                          docFillPercentage,
+                                        );
+                                      }
+                                    }
+                                    provider.setCountry(country);
+                                    //  provider.userProfileModel.selctedCountry = country;
                                     if (provider.userProfileModel.contactNumber!
                                         .isNotEmpty) {
-                                      docFillPercentage =
-                                          Utils().calculatePercentageDocFill(
-                                        docFillPercentage,
-                                      );
+                                      provider.setBtnOpacity(1.0);
                                     }
-                                  }
-                                  provider.setCountry(country);
-                                  //  provider.userProfileModel.selctedCountry = country;
-                                  if (provider.userProfileModel.contactNumber!
-                                      .isNotEmpty) {
-                                    provider.setBtnOpacity(1.0);
-                                  }
-                                },
+                                  },
+                                ),
                               ),
                             ),
                             const SizedBox(height: 20),
-                            RoundButton(
-                              bgColor: black,
-                              btnTextStyle: greyText12,
-                              btnText: 'Cancel',
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                            )
+
+                            CurveContainerView(
+                                isCancelAction: true,
+                                text: strCancel,
+                                onTapOption: (val) {
+                                  Navigator.of(context).pop();
+                                }),
+                            // RoundButton(
+                            //   bgColor: black,
+                            //   btnTextStyle: greyText12,
+                            //   btnText: 'Cancel',
+                            //   onTap: () {
+                            //     Navigator.of(context).pop();
+                            //   },
+                            // )
                           ],
                         ),
                       ),

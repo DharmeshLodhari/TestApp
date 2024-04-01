@@ -87,6 +87,6 @@ class QuizzStartScreen extends StatelessWidget {
 
   void _navigateToHomeScreen(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+        .push(MaterialPageRoute(builder: (context) => const HomeScreen()));
   }
 }

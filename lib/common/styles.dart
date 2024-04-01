@@ -76,7 +76,7 @@ BoxDecoration outlineGreyBorder({Color? borderColor}) {
         color: borderColor,
         style: BorderStyle.solid,
       ),
-      borderRadius: const BorderRadius.all(Radius.circular(20)));
+      borderRadius: const BorderRadius.all(Radius.circular(25)));
 }
 
 BoxDecoration outlineGreyBorderAndBg = BoxDecoration(
