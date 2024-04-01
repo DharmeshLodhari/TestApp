@@ -23,8 +23,10 @@ const TextStyle whiteText14FF =
     TextStyle(color: white, fontSize: 14.0, fontFamily: 'ROBOTO');
 const TextStyle whiteText14Bold =
     TextStyle(color: white, fontSize: 14.0, fontWeight: FontWeight.bold);
-TextStyle greyText14Bold =
+TextStyle grey1Text14Bold =
     TextStyle(color: grey1, fontSize: 14.0, fontWeight: FontWeight.bold);
+TextStyle greyText14Bold =
+    TextStyle(color: grey, fontSize: 14.0, fontWeight: FontWeight.bold);
 const TextStyle whiteText12 = TextStyle(color: white, fontSize: 12.0);
 
 TextStyle blackText14 = TextStyle(color: black, fontSize: 14.0);
@@ -65,14 +67,17 @@ BoxDecoration outlineBorderWithPinkBg = BoxDecoration(
     color: pink.withOpacity(0.17),
     borderRadius: const BorderRadius.all(Radius.circular(30)));
 
-BoxDecoration outlineGreyBorder = BoxDecoration(
-    color: Colors.black,
-    border: Border.all(
-      width: 0.5,
-      color: grey,
-      style: BorderStyle.solid,
-    ),
-    borderRadius: const BorderRadius.all(Radius.circular(20)));
+BoxDecoration outlineGreyBorder({Color? borderColor}) {
+  borderColor ??= grey;
+  return BoxDecoration(
+      color: Colors.black,
+      border: Border.all(
+        width: 0.5,
+        color: borderColor,
+        style: BorderStyle.solid,
+      ),
+      borderRadius: const BorderRadius.all(Radius.circular(20)));
+}
 
 BoxDecoration outlineGreyBorderAndBg = BoxDecoration(
     color: grey.withOpacity(0.5),

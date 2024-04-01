@@ -23,7 +23,8 @@ class CurveContainerView extends StatelessWidget {
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width,
         height: 50,
-        decoration: outlineGreyBorder(color: isCancelAction ? black : null),
+        decoration:
+            outlineGreyBorder(borderColor: isCancelAction ? black : null),
         child: Text(
           text!,
           style: isCancelAction ? greyText14Bold : whiteText14,

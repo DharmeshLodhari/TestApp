@@ -72,7 +72,7 @@ class _CountryListScreenState extends State<CountryListScreen> {
           ),
           Text(
             strCountries,
-            style: greyText14Bold,
+            style: grey1Text14Bold,
           ),
           const SizedBox(
             height: 10,
