@@ -18,6 +18,13 @@ class ProfilePreviewScreen extends StatelessWidget {
         elevation: 0,
         automaticallyImplyLeading: false,
         backgroundColor: isPreviewForCard ? Colors.transparent : pink,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.transparent,
+            height: 0,
+          ),
+        ),
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
