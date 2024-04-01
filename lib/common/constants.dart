@@ -1,4 +1,3 @@
-
 String strDocumentDetails = 'Document Details';
 String strCongratulations = 'Congratulations';
 String strUserProfile = 'User Profile';
@@ -26,4 +25,3 @@ String strPreviewPhotoPlanning = 'Preview Photo Planning';
 String strCardPhoto = 'Card Photo';
 String strProfile = 'Profile';
 String strCard = 'Card';
-
