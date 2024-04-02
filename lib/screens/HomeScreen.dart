@@ -41,6 +41,94 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int totalQuestions = 2;
 
+  Widget _buildViewForLandscape(UserQuizzDataProvider provider){
+    if(MediaQuery.of(context).orientation == Orientation.landscape){
+      return SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            Container(
+
+              child: Row(
+                children: [
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: Text(
+                      strDocumentDetails,
+                      style: whiteBoldText26,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+
+                  Spacer(),
+
+                  Container(
+
+                    child: CircularProgressIndicatorWidget(
+                      level: '',
+                      percentage: progressPercentage,
+                      progressValue: taskCompletePercentage,
+                      progressTypeValue: '',
+                      docFillPercentage: docFillPercentage,
+                      dotLegnth: 0.1,
+                      dotPosition: Utils().getDotPosition(provider.questionIndex),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                ],
+              ),
+            ),
+
+            _buildQuestionSeries(provider),
+            _buildButtonForNextQsn(provider),
+          ],
+        ),
+      );
+    }
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 10),
+        Container(
+
+          child: Row(
+            children: [
+              const SizedBox(width: 10),
+              Flexible(
+                child: Text(
+                  strDocumentDetails,
+                  style: whiteBoldText26,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Container(
+
+                child: CircularProgressIndicatorWidget(
+                  level: '',
+                  percentage: progressPercentage,
+                  progressValue: taskCompletePercentage,
+                  progressTypeValue: '',
+                  docFillPercentage: docFillPercentage,
+                  dotLegnth: 0.1,
+                  dotPosition: Utils().getDotPosition(provider.questionIndex),
+                ),
+              ),
+              const SizedBox(width: 10),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        _buildQuestionSeries(provider),
+        Expanded(child: Container()),
+        _buildButtonForNextQsn(provider),
+      ],
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<UserQuizzDataProvider>(context);
@@ -49,14 +137,20 @@ class _HomeScreenState extends State<HomeScreen> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
             centerTitle: true,
-            leading: GestureDetector(
+            leading: InkWell(
               child: const Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
                 size: 16,
               ),
               onTap: () {
-                Navigator.pop(context);
+                if(provider.questionIndex == 0){
+                  provider.resetData();
+                  Navigator.pop(context);
+                }else{
+                  provider.decreaseIndex();
+                }
+
               },
             ),
             title: AppBarView(
@@ -68,37 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
             )),
         body: Container(
           margin: const EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  const SizedBox(width: 10),
-                  Flexible(
-                    child: Text(
-                      strDocumentDetails,
-                      style: whiteBoldText26,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  CircularProgressIndicatorWidget(
-                    level: '',
-                    percentage: progressPercentage,
-                    progressValue: taskCompletePercentage,
-                    progressTypeValue: '',
-                    docFillPercentage: docFillPercentage,
-                  ),
-                  const SizedBox(width: 10),
-                ],
-              ),
-              const SizedBox(height: 10),
-              _buildQuestionSeries(provider),
-              Expanded(child: Container()),
-              _buildButtonForNextQsn(provider),
-            ],
-          ),
+          child:_buildViewForLandscape(provider),
         ),
       ),
     );
@@ -114,9 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
               barrierColor: black.withOpacity(0.95),
               context: context,
               elevation: 0,
-              // constraints: BoxConstraints(
-              //     maxHeight: MediaQuery.of(context).size.height,
-              //     minHeight: MediaQuery.of(context).size.height),
+
               builder: (BuildContext context) {
                 return Wrap(
                   children: [
@@ -162,15 +224,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: docList.length,
                             shrinkWrap: true,
                           ),
-
-                          //CurveContainerView(text: 'National Card',),
-                          // RoundButton(
-                          //     bgColor: Colors.black,
-                          //     btnTextStyle: greyText14,
-                          //     btnText: 'CANCEL',
-                          //     onTap: () {
-                          //       Navigator.of(context).pop();
-                          //     })
                         ],
                       ),
                     ),
@@ -191,51 +244,14 @@ class _HomeScreenState extends State<HomeScreen> {
               _navigateToContactAddScreen(context, provider);
             },
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 16),
           DropDownView(
             hintText: strCountry,
             selectedValue: provider.userProfileModel.selctedCountry == null
                 ? ''
                 : provider.userProfileModel.selctedCountry!.name,
             showDocsOptions: () {
-              /*showModalBottomSheet(
-                    backgroundColor: Colors.white,
-                  isScrollControlled: true,
-                  useSafeArea: true,
-                  context: context, builder: (BuildContext context){
-                return Container(
 
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0),
-                    )
-                  ),
-                  margin: EdgeInsets.only(top: 20,left: 20,right: 20),
-                  child: CountryListScreen(
-                    selectedCountry: provider.userProfileModel.selctedCountry,
-                    onCountrySelect: (country){
-                      if(provider.userProfileModel.selctedCountry == null){
-                        progressPercentage = Utils().calculatePercentage(progressPercentage);
-                        taskCompletePercentage = Utils().convertPercentageToStr(progressPercentage);
-                        if(provider.userProfileModel.contactNumber!.isNotEmpty){
-                          docFillPercentage = Utils().calculatePercentageDocFill(docFillPercentage);
-                        }
-
-
-                      }
-                      provider.setCountry(country);
-                    //  provider.userProfileModel.selctedCountry = country;
-                      if(provider.userProfileModel.contactNumber!.isNotEmpty){
-                        provider.setBtnOpacity(1.0);
-
-                      }
-
-                    },
-                  ),
-                );
-              });*/
               showDialog(
                   context: context,
                   barrierDismissible: true,
@@ -309,18 +325,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
                             CurveContainerView(
                                 isCancelAction: true,
-                                text: strCancel,
+                                text: strCancel.toUpperCase(),
                                 onTapOption: (val) {
                                   Navigator.of(context).pop();
                                 }),
-                            // RoundButton(
-                            //   bgColor: black,
-                            //   btnTextStyle: greyText12,
-                            //   btnText: 'Cancel',
-                            //   onTap: () {
-                            //     Navigator.of(context).pop();
-                            //   },
-                            // )
+
                           ],
                         ),
                       ),
@@ -359,24 +368,20 @@ class _HomeScreenState extends State<HomeScreen> {
               userProfileModel: userProfileModel,
             )));
     if (result['ImageFileName'] != null) {
-      // if(userProfileModel.imageFileName!.isEmpty){
       progressPercentage = Utils().calculatePercentage(progressPercentage);
       taskCompletePercentage =
           Utils().convertPercentageToStr(progressPercentage);
       docFillPercentage = Utils().calculatePercentageDocFill(docFillPercentage);
-
-      // }
     }
     provider.setProfileImage(imageFile, result['ImageFileName'] as String);
-    //  userProfileModel.imageFileName = result['ImageFileName'] as String;
-    // nextBtnOpacity = 1.0;
+
     provider.setBtnOpacity(1.0);
   }
 
   Widget _buildButtonForNextQsn(UserQuizzDataProvider provider) {
     if (provider.questionIndex == 0) {
       return RoundButton(
-        btnTextStyle: whiteText14,
+        btnTextStyle: whiteText13Bold,
         bgColor: pink,
         btnText: 'NEXT',
         onTap: () {
@@ -393,14 +398,14 @@ class _HomeScreenState extends State<HomeScreen> {
         provider.decreaseIndex();
       },
       onTapNextBtn: () {
-        if (totalQuestions == provider.questionIndex) {
+        if (totalQuestions == provider.questionIndex && provider.nextBtnOpacity == 1.0) {
           _navigateToQuizzEndScreen(context, provider);
           return;
         }
         if (provider.nextBtnOpacity == 1.0) {
           provider.increaseIndex();
           provider.setBtnOpacity(0.4);
-          //nextBtnOpacity = 0.4;
+
         }
       },
     );
@@ -409,7 +414,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void _navigateToContactAddScreen(
       BuildContext context, UserQuizzDataProvider provider) async {
     var result = await Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const ContactNumberScreen()));
+        MaterialPageRoute(builder: (context) =>  ContactNumberScreen(
+          contactNo: provider.userProfileModel.contactNumber!,
+        )));
     if (result['Number'] != null) {
       if (provider.userProfileModel.contactNumber!.isEmpty) {
         progressPercentage = Utils().calculatePercentage(progressPercentage);
@@ -421,9 +428,9 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       }
       provider.setContactNumber(result['Number'] as String);
-      //  provider.userProfileModel.contactNumber = result['Number'] as String;
+
       if (provider.userProfileModel.selctedCountry != null) {
-        // nextBtnOpacity = 1.0;
+
         provider.setBtnOpacity(1);
       }
     }

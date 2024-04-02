@@ -27,7 +27,7 @@ class CurveContainerView extends StatelessWidget {
             outlineGreyBorder(borderColor: isCancelAction ? black : null),
         child: Text(
           text!,
-          style: isCancelAction ? greyText14Bold : whiteText14,
+          style: isCancelAction ? greyText14Bold : whiteText14InPass,
         ),
       ),
     );

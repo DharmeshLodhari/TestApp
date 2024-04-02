@@ -1,6 +1,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:test_app/models/UserProfileModel.dart';
 
@@ -38,6 +39,33 @@ class Utils {
 
     }
     return model;
+  }
+
+  double getDotPosition(int segmentIndex){
+
+    if(segmentIndex == 0){
+      return 330;
+    }
+    if(segmentIndex == 1){
+      return 90;
+    }
+    return 210;
+  }
+
+  double getHeightOfPhoto(BuildContext context,bool showCardView){
+    if(MediaQuery.of(context).orientation == Orientation.landscape){
+
+      return 380;
+    }
+    return MediaQuery.of(context).size.height *0.38;
+        //(showCardView ? 0.45 : );
+  }
+  double getWidthOfCard(BuildContext context,){
+    if(MediaQuery.of(context).orientation == Orientation.landscape){
+
+      return 250;
+    }
+    return MediaQuery.of(context).size.width * 0.65;
   }
 
 }

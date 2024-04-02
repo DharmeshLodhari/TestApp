@@ -40,10 +40,10 @@ class _CountryListScreenState extends State<CountryListScreen> {
           Center(
             child: Text(
               strCountry,
-              style: pinkText22,
+              style: pinkText20,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 26),
           Container(
             decoration: BoxDecoration(
               border: Border.all(
@@ -63,7 +63,7 @@ class _CountryListScreenState extends State<CountryListScreen> {
                 contentPadding: const EdgeInsets.all(10.0),
                 border: InputBorder.none,
                 hintText: 'Search',
-                hintStyle: whiteText14,
+                hintStyle: greyText14,
               ),
               onChanged: (val) {
                 countryProvider.filterCountries(val);
@@ -110,7 +110,7 @@ class _CountryListScreenState extends State<CountryListScreen> {
               children: [
                 Text(
                   provider.filteredCountries[index].name,
-                  style: greyText12,
+                  style: greyText12Roboto,
                 ),
                 Expanded(child: Container()),
                 _buildIcon(provider.filteredCountries[index].name),

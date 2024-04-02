@@ -5,18 +5,33 @@ import 'package:test_app/widgets/AppBarWidget.dart';
 import 'package:test_app/widgets/RoundButton.dart';
 
 class ContactNumberScreen extends StatefulWidget {
-  const ContactNumberScreen({super.key});
+   ContactNumberScreen({
+   this.contactNo = '',
+   super.key});
 
-  @override
+    String contactNo;
+   @override
   _ContactNumberScreenState createState() => _ContactNumberScreenState();
 }
 
 class _ContactNumberScreenState extends State<ContactNumberScreen> {
   double? btnOpacity = 0.5;
   final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller.text = widget.contactNo;
+    if(widget.contactNo.isNotEmpty){
+      btnOpacity = 1.0;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
           leading: GestureDetector(
             child: const Icon(
@@ -50,9 +65,12 @@ class _ContactNumberScreenState extends State<ContactNumberScreen> {
                 autofocus: true,
                 controller: _controller,
                 cursorColor: pink,
+
                 keyboardType: TextInputType.number,
                 style: const TextStyle(color: Colors.white),
+
                 decoration: InputDecoration(
+
                   counterText: '',
                   suffixIcon: _controller.text.isEmpty
                       ? null

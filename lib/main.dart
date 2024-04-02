@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/providers/CountryList.dart';
 import 'package:test_app/providers/UserQuizzDataProvider.dart';
@@ -6,7 +7,10 @@ import 'package:test_app/screens/QuizzStartScreen.dart';
 import 'package:test_app/theme/theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(MyApp()));
+
 }
 
 class MyApp extends StatelessWidget {
@@ -27,7 +31,7 @@ class MyApp extends StatelessWidget {
         theme: appTheme,
         initialRoute: '/',
         routes: {
-          '/': (context) => const QuizzStartScreen(),
+          '/': (context) =>  QuizzStartScreen(),
         },
       ),
     );

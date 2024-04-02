@@ -7,7 +7,7 @@ import 'package:test_app/models/UserProfileModel.dart';
 class UserQuizzDataProvider extends ChangeNotifier {
   UserProfileModel userProfileModel = UserProfileModel();
   int questionIndex = 0;
-  double? nextBtnOpacity = 0.4;
+  double? nextBtnOpacity = 0.15;
 
   void setDoc(String docName) {
     userProfileModel.selectedDoc = docName;
@@ -47,7 +47,7 @@ class UserQuizzDataProvider extends ChangeNotifier {
 
   void resetData() {
     questionIndex = 0;
-    nextBtnOpacity = 0.4;
+    nextBtnOpacity = 0.15;
     userProfileModel = UserProfileModel();
     notifyListeners();
   }

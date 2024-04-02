@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class CountryProvider  extends ChangeNotifier{
   List<Country> _countries = [];
-  List<Country> filteredCountries = []; // Add a list to store filtered countries
+  List<Country> filteredCountries = [];
 
   List<Country> get countries => _countries;
   Future<dynamic> fetchCountries() async {

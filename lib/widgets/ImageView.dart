@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
+import 'package:test_app/common/utils.dart';
 
 class ZoomableImageView extends StatelessWidget {
   ZoomableImageView({
@@ -39,7 +40,7 @@ class ZoomableImageView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
           child: Center(
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.65,
+              width: Utils().getWidthOfCard(context),
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(
                   Radius.circular(0),
@@ -53,10 +54,14 @@ class ZoomableImageView extends StatelessWidget {
                 key: repaintKeyForCard,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(0.0),
+
                   child: PhotoView(
+
+
                     controller: cardPhotoViewController,
                     imageProvider: FileImage(
                       file!,
+
                     ),
                     enableRotation: true,
                     wantKeepAlive: true,
@@ -72,25 +77,37 @@ class ZoomableImageView extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(
-                  Radius.circular(200),
+                  Radius.circular(220),
                 ),
                 border: Border.all(
                   color: borderColor,
                   width: 4.0,
                 ),
               ),
-              child: RepaintBoundary(
-                key: repaintKey,
-                child: CircleAvatar(
-                  radius: 150,
-                  child: ClipOval(
-                    child: PhotoView(
-                      controller: profilePhotoViewController,
-                      imageProvider: FileImage(
-                        file!,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(220),
+                  ),
+                  border: Border.all(
+                    color: black,
+                    width: 4.0,
+                  ),
+                ),
+                child: RepaintBoundary(
+                  key: repaintKey,
+                  child: CircleAvatar(
+                    radius: 110,
+                    child: ClipOval(
+                      child: PhotoView(
+
+                        controller: profilePhotoViewController,
+                        imageProvider: FileImage(
+                          file!,
+                        ),
+                        enableRotation: true,
+                        wantKeepAlive: true,
                       ),
-                      enableRotation: true,
-                      wantKeepAlive: true,
                     ),
                   ),
                 ),
@@ -112,10 +129,12 @@ class ZoomableImageView extends StatelessWidget {
     }
     return Column(
       children: [
+
         Expanded(child: _buildBody(context)),
+
         Text(
           _getPhotoAdjustText(),
-          style: pinkText10,
+          style: pinkText13,
         ),
         const SizedBox(
           height: 10,
@@ -138,7 +157,9 @@ class ZoomableImageView extends StatelessWidget {
     if (isPhotoEditingDoneForCard && isCardView) {
       return strPhotoAdjustDoneText;
     }
-
+    if(isCardView){
+      return strCROPYOURPHOTO;
+    }
     return strPhotoAdjustText;
   }
 

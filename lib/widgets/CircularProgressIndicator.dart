@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
 
 class CircularProgressIndicatorWidget extends StatelessWidget {
@@ -11,12 +12,17 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
     required this.progressValue,
     required this.progressTypeValue,
     required this.docFillPercentage,
+    required this.dotPosition,
+    required this.dotLegnth,
   });
   final double percentage;
   final double docFillPercentage;
   final String level;
   final String progressValue;
   final String progressTypeValue;
+  final double dotPosition;
+  final double dotLegnth;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,7 +55,7 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 30,
-                            fontFamily: 'Inter'),
+                            fontFamily: 'Montserrat-Black'),
                       ),
                     ],
                   ),
@@ -70,8 +76,9 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
   Widget _buildPaiChart(BuildContext context) {
     return ClipRect(
       child: Align(
-        alignment: Alignment.bottomCenter,
+
         widthFactor: 0.6,
+        heightFactor: 0.6,
         child: SfRadialGauge(
           // backgroundColor: Colors.orange,
           axes: <RadialAxis>[
@@ -103,7 +110,7 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
               canScaleToFit: true,
               minimum: 0,
               interval: 1,
-              maximum: 3,
+              maximum: questionSegment,
               showLabels: false,
               showTicks: true,
               showAxisLine: false,
@@ -119,10 +126,44 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
                 lengthUnit: GaugeSizeUnit.factor,
                 color: Colors.black,
               ),
+            ),
+            RadialAxis(
+              canScaleToFit: true,
+              minimum: 0,
+              interval: 1,
+              maximum: 1,
+              showLabels: false,
+              showTicks: false,
+              showAxisLine: false,
+              tickOffset: -0.05,
+              offsetUnit: GaugeSizeUnit.factor,
+              minorTicksPerInterval: 0,
+              startAngle: dotPosition ?? 0,
+              endAngle: dotPosition ?? 0,
+              radiusFactor: 0.60,
+              pointers: <GaugePointer>[
+                MarkerPointer(
+                    value: 10,
+                    color: dotPosition == 0.0 ? black.withOpacity(0):pink,
+
+                    markerOffset: 0.0,
+                    offsetUnit: GaugeSizeUnit.factor,
+                    markerType: MarkerType.circle,
+                    markerHeight: 8,
+                    markerWidth: 8)
+              ],
+              majorTickStyle:  MajorTickStyle(
+                length: dotLegnth ?? 0.0,
+                thickness: 3,
+                lengthUnit: GaugeSizeUnit.factor,
+                color: pink,
+
+              ),
             )
           ],
         ),
       ),
     );
   }
+
 }

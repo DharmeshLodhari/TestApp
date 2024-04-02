@@ -72,88 +72,89 @@ class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
     return Listener(
       onPointerDown: (e) => setState(() => pointersCount++),
       onPointerUp: (e) => setState(() => pointersCount--),
-      child: SingleChildScrollView(
-        physics:
-            pointersCount == 2 ? const NeverScrollableScrollPhysics() : null,
-        child: Column(
-          children: [
-            _buildSwipeButton(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height *
-                  (showCardView ? 0.42 : 0.45),
-              child: ZoomableImageView(
-                  repaintKey: repaintKey,
-                  repaintKeyForCard: repaintKeyForCard,
-                  file: widget.userProfileModel.imageFile,
-                  isCardView: showCardView,
-                  isPhotoEditingDoneForProfile: isPhotoEditingDoneForProfile,
-                  isPhotoEditingDoneForCard: isPhotoEditingDoneForCard,
-                  profilePhotoViewController: profilePhotoViewController,
-                  cardPhotoViewController: cardPhotoViewController),
+      child: Column(
+        children: [
+          _buildSwipeButton(),
+          const SizedBox(height: 20,),
+          SizedBox(
+            height: Utils().getHeightOfPhoto(context, showCardView),
+            child: ZoomableImageView(
+                repaintKey: repaintKey,
+                repaintKeyForCard: repaintKeyForCard,
+                file: widget.userProfileModel.imageFile,
+                isCardView: showCardView,
+                isPhotoEditingDoneForProfile: isPhotoEditingDoneForProfile,
+                isPhotoEditingDoneForCard: isPhotoEditingDoneForCard,
+                profilePhotoViewController: profilePhotoViewController,
+                cardPhotoViewController: cardPhotoViewController),
+          ),
+          const SizedBox(height: 10,),
+          InkWell(
+            onTap: () {
+              if (showCardView) {
+                isPhotoEditingDoneForCard = true;
+              } else {
+                isPhotoEditingDoneForProfile = true;
+              }
+              setState(() {});
+            },
+            child: PhotoAdjustButton(
+              btnColor: _getButtonColor(),
             ),
-            InkWell(
-              onTap: () {
-                if (showCardView) {
-                  isPhotoEditingDoneForCard = true;
-                } else {
-                  isPhotoEditingDoneForProfile = true;
-                }
-                setState(() {});
-              },
-              child: PhotoAdjustButton(
-                btnColor: _getButtonColor(),
-              ),
-            ),
-            const SizedBox(height: 10),
-            RoundButton(
-              btnOpacity:
-                  isPhotoEditingDoneForProfile && isPhotoEditingDoneForCard
-                      ? 1.0
-                      : 0.4,
-              bgColor: pink,
-              btnTextStyle: blackText14,
-              btnText: strAddPhoto,
-              onTap: () {
-                if (isPhotoEditingDoneForProfile && isPhotoEditingDoneForCard) {
-                  Navigator.pop(context, {
-                    'ImageFileName': widget.userProfileModel.imageFileName,
-                  });
-                }
-              },
-            ),
-            RoundButton(
-              btnOpacity: 1,
-              bgColor: grey,
-              btnTextStyle: whiteText14,
-              btnText: strPreviewPhoto,
-              onTap: () async {
-                captureWidgetScreenshot(context);
-              },
-            ),
-            RoundButton(
-              btnOpacity: 1,
-              bgColor: grey,
-              btnTextStyle: whiteText14,
-              btnText: strSelectFromLibrary,
-              onTap: () async {
-                widget.userProfileModel =
-                    await Utils().pickImage(widget.userProfileModel);
-                isPhotoEditingDoneForProfile = false;
-                isPhotoEditingDoneForCard = false;
-                setState(() {});
-              },
-            ),
-            RoundButton(
-              btnOpacity: 0.5,
-              bgColor: grey,
-              btnTextStyle: whiteText14,
-              btnText: strCancel,
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 24),
+          RoundButton(
+            btnOpacity:
+                isPhotoEditingDoneForProfile && isPhotoEditingDoneForCard
+                    ? 1.0
+                    : 0.4,
+            bgColor: pink,
+            btnTextStyle: blackText14,
+            btnText: strAddPhoto,
+            onTap: () {
+              if (isPhotoEditingDoneForProfile && isPhotoEditingDoneForCard) {
+                Navigator.pop(context, {
+                  'ImageFileName': widget.userProfileModel.imageFileName,
+                });
+              }
+            },
+          ),
+          RoundButton(
+            btnOpacity: 1,
+            bgColor: grey,
+            btnTextStyle: greyText13,
+            btnText: strPreviewPhoto,
+            onTap: () async {
+              captureWidgetScreenshot(context);
+            },
+          ),
+          RoundButton(
+            btnOpacity: 1,
+            bgColor: grey,
+            btnTextStyle: greyText13,
+            btnText: strSelectFromLibrary,
+            onTap: () async {
+              widget.userProfileModel =
+                  await Utils().pickImage(widget.userProfileModel);
+              isPhotoEditingDoneForProfile = false;
+              isPhotoEditingDoneForCard = false;
+              profilePhotoViewController = PhotoViewController();
+              cardPhotoViewController = PhotoViewController();
+
+
+              setState(() {});
+            },
+          ),
+          RoundButton(
+            btnOpacity: 0.5,
+            bgColor: grey,
+            btnTextStyle: whiteText14,
+            btnText: strCancel.toUpperCase(),
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
       ),
     );
   }

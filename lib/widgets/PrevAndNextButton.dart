@@ -41,9 +41,9 @@ class PrevAndNextButtonView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(24),
               ),
             ),
-            child: const Text(
+            child:  Text(
               'PREV',
-              style: whiteText14,
+              style: greyText14,
             ),
           ),
         ),

@@ -12,19 +12,19 @@ class PhotoAdjustButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      width: 40,
-      height: 40,
+      height: 32,
+      width: 32,
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(6.0),
         border: Border.all(
           color: btnColor,
-          width: 2.0,
+          width: 1.5,
         ),
       ),
       child: Container(
-        width: 25,
-        height: 25,
+        width: 16,
+        height: 16,
         color: btnColor,
       ),
     );

@@ -15,6 +15,7 @@ class ProfilePreviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
@@ -48,10 +49,78 @@ class ProfilePreviewScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          _buildView(context),
-        ],
+      body: _buildViewForLanscape(context),
+    );
+  }
+  Widget _buildViewForLanscape(BuildContext context){
+    if(MediaQuery.of(context).orientation == Orientation.landscape){
+      return SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildView(context),
+
+          ],
+        ),
+      );
+    }
+    return Column(
+      children: [
+        _buildView(context),
+        if(isPreviewForCard == false && MediaQuery.of(context).orientation == Orientation.portrait)
+          Expanded(child: Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(top: 10),
+            decoration: const BoxDecoration(
+              color: Colors.black,
+
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30.0),
+                topRight: Radius.circular(30.0),
+
+              ),
+            ),
+            child: Image.asset('assets/preview.png',
+              fit: BoxFit.fill,
+            ),
+          ))
+      ],
+    );
+
+  }
+  Widget _buildBottomView(BuildContext context){
+
+    if(isPreviewForCard == false && MediaQuery.of(context).orientation == Orientation.portrait){
+      return  Expanded(child: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.only(top: 10),
+        decoration: const BoxDecoration(
+          color: Colors.black,
+
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            topRight: Radius.circular(30.0),
+
+          ),
+        ),
+        child: Image.asset('assets/preview.png',
+          fit: BoxFit.fill,
+        ),
+      ));
+    }
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.only(top: 10),
+      decoration: const BoxDecoration(
+        color: Colors.black,
+
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30.0),
+          topRight: Radius.circular(30.0),
+
+        ),
+      ),
+      child: Image.asset('assets/preview.png',
+        fit: BoxFit.fill,
       ),
     );
   }
@@ -72,7 +141,7 @@ class ProfilePreviewScreen extends StatelessWidget {
   Widget _buildView(BuildContext context) {
     if (isPreviewForCard) {
       return ListView.builder(
-        itemCount: 4,
+        itemCount: 6,
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return Container(
@@ -126,39 +195,39 @@ class ProfilePreviewScreen extends StatelessWidget {
         },
       );
     }
-    return Container(
-      color: pink,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Center(
-            child: Container(
-              padding: const EdgeInsets.all(3.0),
-              height: 200,
-              width: 200,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(150),
-                ),
-                color: pink,
-                border: Border.all(
-                  color: white,
-                  width: 4.0,
-                ),
+    return Column(
+      children: [
+        Container(
+
+          color: pink,
+          alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(vertical: 20),
+        width: MediaQuery.of(context).size.width,
+          child: Container(
+            padding: const EdgeInsets.all(5.0),
+            height: 200,
+            width: 200,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(150),
               ),
-              child: ClipOval(
-                child: Image.memory(
-                  uint8list!,
-                  fit: BoxFit.cover,
-                ),
+              color: pink,
+              border: Border.all(
+                color: white,
+                width: 4.0,
+              ),
+            ),
+            child: ClipOval(
+              child: Image.memory(
+                uint8list!,
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
-      ),
+        ),
+
+
+      ],
     );
   }
 

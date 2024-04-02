@@ -30,20 +30,22 @@ class AppBarView extends StatelessWidget {
           style: whiteText14AppBar,
         ),
         Expanded(child: Container()),
-        SizedBox(
-          width: 50,
-          child: showSkip
-              ? InkWell(
-                  onTap: onTapSkip,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      strSkip,
-                      style: greyText14,
-                    ),
+        InkWell(
+          onTap: onTapSkip,
+          child: Container(
+            width: 50,
+            height: 40,
+            alignment: Alignment.center,
+            child: showSkip
+                ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    strSkip,
+                    style: greyText12,
                   ),
                 )
-              : Container(),
+                : Container(),
+          ),
         ),
       ],
     );
