@@ -51,4 +51,17 @@ class UserQuizzDataProvider extends ChangeNotifier {
     userProfileModel = UserProfileModel();
     notifyListeners();
   }
+
+  double getButtonOpacity(){
+    if(questionIndex == 0 && userProfileModel.selectedDoc!.isNotEmpty){
+      nextBtnOpacity = 1.0;
+    }
+    if(questionIndex == 1 && userProfileModel.contactNumber!.isNotEmpty || questionIndex == 1 && userProfileModel.selctedCountry != null ){
+      nextBtnOpacity = 1.0;
+    }
+    if(questionIndex == 2 && userProfileModel.imageFileName!.isNotEmpty){
+      nextBtnOpacity = 1.0;
+    }
+    return nextBtnOpacity!;
+  }
 }

@@ -75,7 +75,7 @@ class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
       child: Column(
         children: [
           _buildSwipeButton(),
-          const SizedBox(height: 20,),
+          const SizedBox(height: 18,),
           SizedBox(
             height: Utils().getHeightOfPhoto(context, showCardView),
             child: ZoomableImageView(
@@ -102,7 +102,7 @@ class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
               btnColor: _getButtonColor(),
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 23),
           RoundButton(
             btnOpacity:
                 isPhotoEditingDoneForProfile && isPhotoEditingDoneForCard

@@ -23,7 +23,7 @@ class DropDownView extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(horizontal: 8),
-      height: 50,
+      height: 52,
       decoration:
           selectedValue.isEmpty ? outlineBorder : outlineBorderWithPinkBg,
       child: _buildChildWidgetView(context),

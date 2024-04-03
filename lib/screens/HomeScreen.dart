@@ -67,6 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
 
                     child: CircularProgressIndicatorWidget(
+                      questionIndex: provider.questionIndex,
+                      model: provider.userProfileModel,
                       level: '',
                       percentage: progressPercentage,
                       progressValue: taskCompletePercentage,
@@ -100,13 +102,15 @@ class _HomeScreenState extends State<HomeScreen> {
               Flexible(
                 child: Text(
                   strDocumentDetails,
-                  style: whiteBoldText26,
+                  style: TextStyle(color: white, fontSize: Utils().getFontSize(context), fontFamily: 'Montserrat-Black'),
                 ),
               ),
               const SizedBox(width: 10),
               Container(
 
                 child: CircularProgressIndicatorWidget(
+                  questionIndex: provider.questionIndex,
+                  model: provider.userProfileModel,
                   level: '',
                   percentage: progressPercentage,
                   progressValue: taskCompletePercentage,
@@ -385,14 +389,19 @@ class _HomeScreenState extends State<HomeScreen> {
         bgColor: pink,
         btnText: 'NEXT',
         onTap: () {
-          provider.increaseIndex();
-          provider.setBtnOpacity(0.4);
+          if(provider.userProfileModel.selectedDoc!.isNotEmpty){
+            provider.increaseIndex();
+            provider.setBtnOpacity(0.4);
+          }
+
         },
         btnOpacity: provider.userProfileModel.selectedDoc!.isEmpty ? 0.4 : 1.0,
       );
     }
+
+
     return PrevAndNextButtonView(
-      btnText: totalQuestions == provider.questionIndex ? 'FINISH' : 'NEXT',
+      btnText: totalQuestions == provider.questionIndex ? strFinish : strNEXT,
       btnOpacity: provider.nextBtnOpacity,
       onTapPrevBtn: () {
         provider.decreaseIndex();
@@ -410,6 +419,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
+
 
   void _navigateToContactAddScreen(
       BuildContext context, UserQuizzDataProvider provider) async {
@@ -438,11 +448,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _navigateToQuizzEndScreen(
       BuildContext context, UserQuizzDataProvider provider) async {
+    UserProfileModel temp = provider.userProfileModel;
     provider.resetData();
     Navigator.of(context).popUntil((route) => false);
 
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => QuizzStartScreen(
+              model: temp,
+              questionIndex: 3,
               isQuizzCompleted: true,
               progressPercentage: progressPercentage,
               taskCompletePercentage: taskCompletePercentage,

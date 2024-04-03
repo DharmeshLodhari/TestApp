@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:test_app/common/constants.dart';
@@ -71,50 +72,45 @@ class ZoomableImageView extends StatelessWidget {
             ),
           ),
         ),
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(220),
-                ),
-                border: Border.all(
-                  color: borderColor,
-                  width: 4.0,
-                ),
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(220),
-                  ),
-                  border: Border.all(
-                    color: black,
-                    width: 4.0,
-                  ),
-                ),
-                child: RepaintBoundary(
-                  key: repaintKey,
-                  child: CircleAvatar(
-                    radius: 110,
-                    child: ClipOval(
-                      child: PhotoView(
 
-                        controller: profilePhotoViewController,
-                        imageProvider: FileImage(
-                          file!,
-                        ),
-                        enableRotation: true,
-                        wantKeepAlive: true,
-                      ),
-                    ),
-                  ),
-                ),
+        Container(
+
+
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(vertical: 20),
+          width: MediaQuery.of(context).size.width,
+          child: Container(
+            padding: const EdgeInsets.all(5.0),
+            height: 200,
+            width: 200,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(150),
+              ),
+              color: black,
+              border: Border.all(
+                color: borderColor,
+                width: 4.0,
               ),
             ),
+            child: RepaintBoundary(
+              key: repaintKey,
+              child:
+              ClipOval(
+                child: PhotoView(
+
+                  controller: profilePhotoViewController,
+                  imageProvider: FileImage(
+                    file!,
+                  ),
+                  enableRotation: true,
+                  wantKeepAlive: true,
+                ),
+              ),
+
+            ),
           ),
-        )
+        ),
       ],
     );
   }

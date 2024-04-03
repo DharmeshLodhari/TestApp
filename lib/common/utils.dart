@@ -3,6 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:test_app/common/styles.dart';
+import 'package:test_app/models/Country.dart';
 import 'package:test_app/models/UserProfileModel.dart';
 
 class Utils {
@@ -66,6 +69,128 @@ class Utils {
       return 250;
     }
     return MediaQuery.of(context).size.width * 0.65;
+  }
+
+  List<GaugeRange> test(UserProfileModel model){
+    List<GaugeRange> segmentProgress =[GaugeRange(
+      endWidth: 8,
+      startWidth: 8,
+      startValue: 0.0, endValue: 33.0,
+      color: pink,
+      rangeOffset: -2,
+
+    ),
+      GaugeRange(
+        endWidth: 8,
+        startWidth: 8,
+        startValue: 33.0, endValue: 66.0,
+        color: grey,
+        rangeOffset: -2,
+
+      ),
+      GaugeRange(
+        endWidth: 8,
+        startWidth: 8,
+        startValue: 67.0, endValue: 100.0,
+        color: pink,
+        rangeOffset: -2,
+
+      )
+    ];
+
+    return segmentProgress;
+
+
+  }
+  Color getColors1(int index,String val){
+    if(val.isEmpty){
+      return grey;
+    }
+    /*if(index == 0 && val.isNotEmpty){
+      return pink;
+    }*/
+
+    return pink;
+  }
+  Color getColors2(int index,String num,Country? country){
+    if(num.isNotEmpty && country != null){
+      return pink;
+    }
+    return grey;
+    if(num.isNotEmpty && country != null){
+      return pink;
+    }
+    if(index == 1 && num.isNotEmpty && country != null){
+      return pink;
+    }
+    return grey;
+  }
+  Color getColors3(int index,String photo){
+    if(photo.isEmpty){
+      return grey;
+    }
+   /* if(index == 3 && photo.isNotEmpty){
+      return pink;
+    }*/
+    return pink;
+  }
+  double getButtonOpacity(int index,UserProfileModel model){
+    if(index == 0 && model.selectedDoc!.isNotEmpty){
+      return 1.0;
+    }
+    if(index == 1 && model.contactNumber!.isNotEmpty){
+      return 1.0;
+    }
+    if(index == 2 && model.imageFileName!.isNotEmpty){
+      return 1.0;
+    }
+    return 0.15;
+
+  }
+
+  List<GaugeRange> getRangeList(int questionIndex,UserProfileModel model){
+    List<GaugeRange> rangeList =[
+      GaugeRange(
+      endWidth: 8,
+      startWidth: 8,
+      startValue: 0.0, endValue: 33.0,
+      color: Utils().getColors1(questionIndex,model.selectedDoc!),
+      rangeOffset: -2,
+
+    ),
+    GaugeRange(
+    endWidth: 8,
+    startWidth: 8,
+    startValue: 33.0, endValue: 66.66,
+    color: Utils().getColors2(questionIndex,model.contactNumber!,model.selctedCountry),
+    rangeOffset: -2,
+
+    ),
+      GaugeRange(
+    endWidth: 8,
+    startWidth: 8,
+    startValue: 67.0, endValue: 100.0,
+    color: Utils().getColors3(questionIndex,model.imageFileName!),
+    rangeOffset: -2,
+    )
+    ];
+    return rangeList;
+
+
+
+  }
+
+  double getFontSize(BuildContext context){
+    double  width  =MediaQuery.of(context).size.width ;
+    if(width < 400){
+      return 22;
+    }
+    return 24 ;
+  }
+  double getPaddingSize(BuildContext context){
+    double  i  =MediaQuery.of(context).size.width ;
+
+    return 10 ;
   }
 
 }

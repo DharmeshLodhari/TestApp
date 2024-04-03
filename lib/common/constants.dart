@@ -28,4 +28,6 @@ String strPreviewPhotoPlanning = 'Preview Photo Planning';
 String strCardPhoto = 'Card Photo';
 String strProfile = 'Profile';
 String strCard = 'Card';
+String strFinish = 'FINISH';
+String strNEXT = 'NEXT';
 double questionSegment = 3;

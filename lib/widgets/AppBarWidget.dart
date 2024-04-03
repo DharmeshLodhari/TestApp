@@ -30,25 +30,34 @@ class AppBarView extends StatelessWidget {
           style: whiteText14AppBar,
         ),
         Expanded(child: Container()),
-        InkWell(
-          onTap: onTapSkip,
-          child: Container(
-            width: 50,
-            height: 40,
-            alignment: Alignment.center,
-            child: showSkip
-                ? Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Text(
-                    strSkip,
-                    style: greyText12,
-                  ),
-                )
-                : Container(),
-          ),
-        ),
+
+        _buildSkipButton()
       ],
     );
+  }
+  Widget _buildSkipButton(){
+    if(showSkip){
+      return InkWell(
+        onTap: onTapSkip,
+        child: Container(
+          width: 50,
+          height: 40,
+          alignment: Alignment.center,
+          child: showSkip
+              ? Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              strSkip,
+              style: greyText12,
+            ),
+          )
+              : Container(),
+        ),
+      );
+    }
+    return Container(
+      width: 50,
+      height: 40,);
   }
 
   titleText() {

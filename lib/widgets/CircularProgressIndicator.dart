@@ -3,6 +3,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
+import 'package:test_app/common/utils.dart';
+import 'package:test_app/models/UserProfileModel.dart';
 
 class CircularProgressIndicatorWidget extends StatelessWidget {
   const CircularProgressIndicatorWidget({
@@ -14,6 +16,8 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
     required this.docFillPercentage,
     required this.dotPosition,
     required this.dotLegnth,
+    required this.model,
+   required this.questionIndex,
   });
   final double percentage;
   final double docFillPercentage;
@@ -22,6 +26,8 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
   final String progressTypeValue;
   final double dotPosition;
   final double dotLegnth;
+  final UserProfileModel model;
+  final int questionIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +79,8 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
     );
   }
 
+
+
   Widget _buildPaiChart(BuildContext context) {
     return ClipRect(
       child: Align(
@@ -96,14 +104,10 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
                 color: grey.withOpacity(0.4),
                 thicknessUnit: GaugeSizeUnit.factor,
               ),
+
+              ranges: Utils().getRangeList(questionIndex, model),
               pointers: <GaugePointer>[
-                RangePointer(
-                  color: pink,
-                  value: docFillPercentage,
-                  width: 0.065,
-                  pointerOffset: 0,
-                  sizeUnit: GaugeSizeUnit.factor,
-                )
+
               ],
             ),
             RadialAxis(
@@ -120,6 +124,7 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
               startAngle: 270,
               endAngle: 270,
               radiusFactor: 0.65,
+
               majorTickStyle: const MajorTickStyle(
                 length: 0.3,
                 thickness: 3,

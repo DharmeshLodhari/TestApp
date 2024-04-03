@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/models/UserProfileModel.dart';
 import 'package:test_app/providers/CountryList.dart';
 import 'package:test_app/providers/UserQuizzDataProvider.dart';
 import 'package:test_app/screens/QuizzStartScreen.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         theme: appTheme,
         initialRoute: '/',
         routes: {
-          '/': (context) =>  QuizzStartScreen(),
+          '/': (context) =>  QuizzStartScreen(model: UserProfileModel(),),
         },
       ),
     );

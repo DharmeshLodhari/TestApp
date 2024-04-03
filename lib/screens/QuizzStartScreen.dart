@@ -2,6 +2,7 @@ import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
+import 'package:test_app/models/UserProfileModel.dart';
 import 'package:test_app/screens/HomeScreen.dart';
 import 'package:test_app/widgets/CircularProgressIndicator.dart';
 import 'package:test_app/widgets/RoundButton.dart';
@@ -13,12 +14,16 @@ class QuizzStartScreen extends StatefulWidget {
   this.progressPercentage = 0.0,
   this.taskCompletePercentage = '0%',
   this.docFillPercentage = 0.0,
+  required this.model,
+  this.questionIndex = 0,
   super.key,
 });
 bool isQuizzCompleted;
 double progressPercentage;
 double docFillPercentage;
 String taskCompletePercentage;
+   UserProfileModel model;
+ int questionIndex;
   @override
   _QuizzStartScreenState createState() => _QuizzStartScreenState();
 }
@@ -48,6 +53,8 @@ class _QuizzStartScreenState extends State<QuizzStartScreen> {
 
 
                     child: CircularProgressIndicatorWidget(
+                      questionIndex: widget.questionIndex,
+                      model: widget.model,
                       level: '',
                       percentage: widget.progressPercentage,
                       progressValue: widget.taskCompletePercentage,
@@ -112,6 +119,8 @@ class _QuizzStartScreenState extends State<QuizzStartScreen> {
     widget.progressPercentage = 0.0;
     widget.taskCompletePercentage = '0%';
     widget.docFillPercentage = 0.0;
+    widget.questionIndex = 0;
+    widget.model = UserProfileModel();
     setState(() {});
 
   }
