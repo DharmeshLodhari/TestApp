@@ -55,7 +55,7 @@ class AppBarView extends StatelessWidget {
         ),
       );
     }
-    return Container(
+    return const SizedBox(
       width: 50,
       height: 40,);
   }

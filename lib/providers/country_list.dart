@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:test_app/models/Country.dart';
+import 'package:test_app/models/country_model.dart';
 import 'package:http/http.dart' as http;
 
 class CountryProvider  extends ChangeNotifier{
@@ -22,11 +22,12 @@ class CountryProvider  extends ChangeNotifier{
         notifyListeners();
       } else {
         // Handle API errors gracefully (e.g., show error message)
-        print('Failed to load countries: ${response.statusCode}');
+
+        debugPrint('Failed to load countries: ${response.statusCode}');
       }
     } catch (error) {
       // Handle network errors
-      print('Error fetching countries: $error');
+      debugPrint('Error fetching countries: $error');
     }
   }
   void filterCountries(String searchTerm) {
@@ -35,7 +36,7 @@ class CountryProvider  extends ChangeNotifier{
       notifyListeners();
     }else{
       filteredCountries = _countries.where((country) => country.name.toLowerCase().contains(searchTerm.toLowerCase())).toList();
-      notifyListeners(); // Notify listeners about changes in filtered list
+      notifyListeners();
     }
 
   }

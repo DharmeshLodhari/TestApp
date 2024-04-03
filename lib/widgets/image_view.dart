@@ -77,7 +77,7 @@ class ZoomableImageView extends StatelessWidget {
 
 
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(vertical: 20),
+          padding: const EdgeInsets.symmetric(vertical: 20),
           width: MediaQuery.of(context).size.width,
           child: Container(
             padding: const EdgeInsets.all(5.0),

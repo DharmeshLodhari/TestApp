@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
-import 'package:test_app/models/Country.dart';
-import 'package:test_app/providers/CountryList.dart';
+import 'package:test_app/models/country_model.dart';
+import 'package:test_app/providers/country_list.dart';
 
 class CountryListScreen extends StatefulWidget {
   const CountryListScreen({
@@ -16,10 +16,10 @@ class CountryListScreen extends StatefulWidget {
   final Function(Country country)? onCountrySelect;
 
   @override
-  _CountryListScreenState createState() => _CountryListScreenState();
+  CountryListScreenState createState() => CountryListScreenState();
 }
 
-class _CountryListScreenState extends State<CountryListScreen> {
+class CountryListScreenState extends State<CountryListScreen> {
   @override
   void initState() {
     // TODO: implement initState

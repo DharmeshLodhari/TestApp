@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:test_app/models/UserProfileModel.dart';
-import 'package:test_app/providers/CountryList.dart';
-import 'package:test_app/providers/UserQuizzDataProvider.dart';
-import 'package:test_app/screens/QuizzStartScreen.dart';
+import 'package:test_app/models/user_profile_model.dart';
+import 'package:test_app/providers/country_list.dart';
+import 'package:test_app/providers/user_quizz_data_provider.dart';
+import 'package:test_app/screens/quizz_start_screen.dart';
 import 'package:test_app/theme/theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((value) => runApp(MyApp()));
+      .then((value) => runApp(const MyApp()));
 
 }
 

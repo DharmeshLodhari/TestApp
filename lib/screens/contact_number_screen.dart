@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
-import 'package:test_app/widgets/AppBarWidget.dart';
-import 'package:test_app/widgets/RoundButton.dart';
+import 'package:test_app/widgets/appbar_widget.dart';
+import 'package:test_app/widgets/round_button.dart';
 
 class ContactNumberScreen extends StatefulWidget {
-   ContactNumberScreen({
+  const ContactNumberScreen({
    this.contactNo = '',
    super.key});
 
-    String contactNo;
+   final  String contactNo;
    @override
-  _ContactNumberScreenState createState() => _ContactNumberScreenState();
+  ContactNumberScreenState createState() => ContactNumberScreenState();
 }
 
-class _ContactNumberScreenState extends State<ContactNumberScreen> {
+class ContactNumberScreenState extends State<ContactNumberScreen> {
   double? btnOpacity = 0.5;
   final TextEditingController _controller = TextEditingController();
 

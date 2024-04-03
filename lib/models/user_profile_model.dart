@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:test_app/models/Country.dart';
+import 'package:test_app/models/country_model.dart';
 
 class UserProfileModel {
   String? selectedDoc = '';

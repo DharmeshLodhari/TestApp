@@ -7,12 +7,12 @@ import 'package:photo_view/photo_view.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
 import 'package:test_app/common/utils.dart';
-import 'package:test_app/models/UserProfileModel.dart';
-import 'package:test_app/screens/ProfilePreviewScreen.dart';
-import 'package:test_app/widgets/AppBarWidget.dart';
-import 'package:test_app/widgets/ImageView.dart';
-import 'package:test_app/widgets/PhotoAdjustButton.dart';
-import 'package:test_app/widgets/RoundButton.dart';
+import 'package:test_app/models/user_profile_model.dart';
+import 'package:test_app/screens/profile_preview_screen.dart';
+import 'package:test_app/widgets/appbar_widget.dart';
+import 'package:test_app/widgets/image_view.dart';
+import 'package:test_app/widgets/photo_adjust_button.dart';
+import 'package:test_app/widgets/round_button.dart';
 
 class PhotoPlanningScreen extends StatefulWidget {
   PhotoPlanningScreen({
@@ -20,13 +20,13 @@ class PhotoPlanningScreen extends StatefulWidget {
     super.key,
   });
 
-  UserProfileModel userProfileModel;
+   UserProfileModel userProfileModel;
 
   @override
-  _PhotoPlanningScreenState createState() => _PhotoPlanningScreenState();
+  PhotoPlanningScreenState createState() => PhotoPlanningScreenState();
 }
 
-class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
+class PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
   bool isPhotoEditingDoneForProfile = false;
   bool isPhotoEditingDoneForCard = false;
   bool showCardView = false;
@@ -57,7 +57,7 @@ class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
     );
   }
 
-  void _navigateToProfilePreviewScreen(BuildContext context) {
+  void _navigateToProfilePreviewScreen() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => ProfilePreviewScreen(
@@ -247,7 +247,7 @@ class _PhotoPlanningScreenState extends State<PhotoPlanningScreen> {
     ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     if (byteData != null) {
       _imageBytes = byteData.buffer.asUint8List();
-      _navigateToProfilePreviewScreen(context);
+      _navigateToProfilePreviewScreen();
     }
   }
 

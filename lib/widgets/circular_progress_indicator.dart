@@ -4,7 +4,7 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
 import 'package:test_app/common/utils.dart';
-import 'package:test_app/models/UserProfileModel.dart';
+import 'package:test_app/models/user_profile_model.dart';
 
 class CircularProgressIndicatorWidget extends StatelessWidget {
   const CircularProgressIndicatorWidget({
@@ -106,9 +106,7 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
               ),
 
               ranges: Utils().getRangeList(questionIndex, model),
-              pointers: <GaugePointer>[
-
-              ],
+              pointers: const <GaugePointer>[],
             ),
             RadialAxis(
               canScaleToFit: true,
@@ -143,8 +141,8 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
               tickOffset: -0.05,
               offsetUnit: GaugeSizeUnit.factor,
               minorTicksPerInterval: 0,
-              startAngle: dotPosition ?? 0,
-              endAngle: dotPosition ?? 0,
+              startAngle: dotPosition ,
+              endAngle: dotPosition ,
               radiusFactor: 0.60,
               pointers: <GaugePointer>[
                 MarkerPointer(
@@ -158,7 +156,7 @@ class CircularProgressIndicatorWidget extends StatelessWidget {
                     markerWidth: 8)
               ],
               majorTickStyle:  MajorTickStyle(
-                length: dotLegnth ?? 0.0,
+                length: dotLegnth ,
                 thickness: 3,
                 lengthUnit: GaugeSizeUnit.factor,
                 color: pink,

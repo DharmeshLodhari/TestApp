@@ -40,7 +40,9 @@ class ProfilePreviewScreen extends StatelessWidget {
               },
               child: SvgPicture.asset(
                 'assets/ic_clear.svg',
-                color: isPreviewForCard ? pink : black,
+
+
+                colorFilter: ColorFilter.mode(isPreviewForCard ? pink : black, BlendMode.srcIn),
                 fit: BoxFit.cover,
                 width: 22,
                 height: 22,
@@ -69,7 +71,7 @@ class ProfilePreviewScreen extends StatelessWidget {
         if(isPreviewForCard == false && MediaQuery.of(context).orientation == Orientation.portrait)
           Expanded(child: Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10),
             decoration: const BoxDecoration(
               color: Colors.black,
 
@@ -87,43 +89,7 @@ class ProfilePreviewScreen extends StatelessWidget {
     );
 
   }
-  Widget _buildBottomView(BuildContext context){
 
-    if(isPreviewForCard == false && MediaQuery.of(context).orientation == Orientation.portrait){
-      return  Expanded(child: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(top: 10),
-        decoration: const BoxDecoration(
-          color: Colors.black,
-
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30.0),
-            topRight: Radius.circular(30.0),
-
-          ),
-        ),
-        child: Image.asset('assets/preview.png',
-          fit: BoxFit.fill,
-        ),
-      ));
-    }
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(top: 10),
-      decoration: const BoxDecoration(
-        color: Colors.black,
-
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30.0),
-          topRight: Radius.circular(30.0),
-
-        ),
-      ),
-      child: Image.asset('assets/preview.png',
-        fit: BoxFit.fill,
-      ),
-    );
-  }
 
   Widget _getTitle() {
     if (isPreviewForCard) {
@@ -201,7 +167,7 @@ class ProfilePreviewScreen extends StatelessWidget {
 
           color: pink,
           alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20),
         width: MediaQuery.of(context).size.width,
           child: Container(
             padding: const EdgeInsets.all(5.0),

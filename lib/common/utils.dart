@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:test_app/common/styles.dart';
-import 'package:test_app/models/Country.dart';
-import 'package:test_app/models/UserProfileModel.dart';
+import 'package:test_app/models/country_model.dart';
+import 'package:test_app/models/user_profile_model.dart';
 
 class Utils {
   double calculatePercentage(double per){
@@ -117,21 +117,13 @@ class Utils {
       return pink;
     }
     return grey;
-    if(num.isNotEmpty && country != null){
-      return pink;
-    }
-    if(index == 1 && num.isNotEmpty && country != null){
-      return pink;
-    }
-    return grey;
+
   }
   Color getColors3(int index,String photo){
     if(photo.isEmpty){
       return grey;
     }
-   /* if(index == 3 && photo.isNotEmpty){
-      return pink;
-    }*/
+
     return pink;
   }
   double getButtonOpacity(int index,UserProfileModel model){
@@ -187,10 +179,6 @@ class Utils {
     }
     return 24 ;
   }
-  double getPaddingSize(BuildContext context){
-    double  i  =MediaQuery.of(context).size.width ;
 
-    return 10 ;
-  }
 
 }

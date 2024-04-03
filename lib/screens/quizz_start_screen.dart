@@ -2,10 +2,10 @@ import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
-import 'package:test_app/models/UserProfileModel.dart';
-import 'package:test_app/screens/HomeScreen.dart';
-import 'package:test_app/widgets/CircularProgressIndicator.dart';
-import 'package:test_app/widgets/RoundButton.dart';
+import 'package:test_app/models/user_profile_model.dart';
+import 'package:test_app/screens/home_screen.dart';
+import 'package:test_app/widgets/circular_progress_indicator.dart';
+import 'package:test_app/widgets/round_button.dart';
 
 
 class QuizzStartScreen extends StatefulWidget {
@@ -24,11 +24,11 @@ double docFillPercentage;
 String taskCompletePercentage;
    UserProfileModel model;
  int questionIndex;
-  @override
-  _QuizzStartScreenState createState() => _QuizzStartScreenState();
+   @override
+  QuizzStartScreenState createState() => QuizzStartScreenState();
 }
 
-class _QuizzStartScreenState extends State<QuizzStartScreen> {
+class QuizzStartScreenState extends State<QuizzStartScreen> {
   @override
   Widget build(BuildContext context) {
     return ColorfulSafeArea(
@@ -44,26 +44,21 @@ class _QuizzStartScreenState extends State<QuizzStartScreen> {
           alignment: Alignment.center,
           children: [
             SingleChildScrollView(
-              physics: MediaQuery.of(context).orientation == Orientation.landscape ? null: NeverScrollableScrollPhysics(),
+              physics: MediaQuery.of(context).orientation == Orientation.landscape ? null:  const NeverScrollableScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-
-
-                    child: CircularProgressIndicatorWidget(
-                      questionIndex: widget.questionIndex,
-                      model: widget.model,
-                      level: '',
-                      percentage: widget.progressPercentage,
-                      progressValue: widget.taskCompletePercentage,
-                      progressTypeValue: '',
-                      docFillPercentage: widget.docFillPercentage,
-                      dotLegnth: 0.0,
-                      dotPosition: 0.0,
-                    ),
-
+                  CircularProgressIndicatorWidget(
+                    questionIndex: widget.questionIndex,
+                    model: widget.model,
+                    level: '',
+                    percentage: widget.progressPercentage,
+                    progressValue: widget.taskCompletePercentage,
+                    progressTypeValue: '',
+                    docFillPercentage: widget.docFillPercentage,
+                    dotLegnth: 0.0,
+                    dotPosition: 0.0,
                   ),
                   const SizedBox(height: 28,),
                   Text(

@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:test_app/models/Country.dart';
-import 'package:test_app/models/UserProfileModel.dart';
+import 'package:test_app/models/country_model.dart';
+import 'package:test_app/models/user_profile_model.dart';
 
 class UserQuizzDataProvider extends ChangeNotifier {
   UserProfileModel userProfileModel = UserProfileModel();

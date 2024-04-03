@@ -6,27 +6,27 @@ import 'package:provider/provider.dart';
 import 'package:test_app/common/constants.dart';
 import 'package:test_app/common/styles.dart';
 import 'package:test_app/common/utils.dart';
-import 'package:test_app/models/UserProfileModel.dart';
-import 'package:test_app/providers/UserQuizzDataProvider.dart';
-import 'package:test_app/screens/ContactNumberScreen.dart';
-import 'package:test_app/screens/CountryListScreen.dart';
-import 'package:test_app/screens/PhotoPlanningScreen.dart';
-import 'package:test_app/screens/QuizzStartScreen.dart';
-import 'package:test_app/widgets/AppBarWidget.dart';
-import 'package:test_app/widgets/CircularProgressIndicator.dart';
-import 'package:test_app/widgets/CurveContainerVew.dart';
-import 'package:test_app/widgets/DropDownWidget.dart';
-import 'package:test_app/widgets/PrevAndNextButton.dart';
-import 'package:test_app/widgets/RoundButton.dart';
+import 'package:test_app/models/user_profile_model.dart';
+import 'package:test_app/providers/user_quizz_data_provider.dart';
+import 'package:test_app/screens/contact_number_screen.dart';
+import 'package:test_app/screens/country_list_screen.dart';
+import 'package:test_app/screens/photo_planning_screen.dart';
+import 'package:test_app/screens/quizz_start_screen.dart';
+import 'package:test_app/widgets/appbar_widget.dart';
+import 'package:test_app/widgets/circular_progress_indicator.dart';
+import 'package:test_app/widgets/curve_container_view.dart';
+import 'package:test_app/widgets/drop_down_widget.dart';
+import 'package:test_app/widgets/prev_and_next_button.dart';
+import 'package:test_app/widgets/round_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   List<String> docList = [
     strPassport,
     strNationalCard,
@@ -49,38 +49,32 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            Container(
-
-              child: Row(
-                children: [
-                  const SizedBox(width: 10),
-                  Flexible(
-                    child: Text(
-                      strDocumentDetails,
-                      style: whiteBoldText26,
-                    ),
+            Row(
+              children: [
+                const SizedBox(width: 10),
+                Flexible(
+                  child: Text(
+                    strDocumentDetails,
+                    style: whiteBoldText26,
                   ),
-                  const SizedBox(width: 10),
+                ),
+                const SizedBox(width: 10),
 
-                  Spacer(),
+                const Spacer(),
 
-                  Container(
-
-                    child: CircularProgressIndicatorWidget(
-                      questionIndex: provider.questionIndex,
-                      model: provider.userProfileModel,
-                      level: '',
-                      percentage: progressPercentage,
-                      progressValue: taskCompletePercentage,
-                      progressTypeValue: '',
-                      docFillPercentage: docFillPercentage,
-                      dotLegnth: 0.1,
-                      dotPosition: Utils().getDotPosition(provider.questionIndex),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                ],
-              ),
+                CircularProgressIndicatorWidget(
+                  questionIndex: provider.questionIndex,
+                  model: provider.userProfileModel,
+                  level: '',
+                  percentage: progressPercentage,
+                  progressValue: taskCompletePercentage,
+                  progressTypeValue: '',
+                  docFillPercentage: docFillPercentage,
+                  dotLegnth: 0.1,
+                  dotPosition: Utils().getDotPosition(provider.questionIndex),
+                ),
+                const SizedBox(width: 12),
+              ],
             ),
 
             _buildQuestionSeries(provider),
@@ -94,35 +88,29 @@ class _HomeScreenState extends State<HomeScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
-        Container(
-
-          child: Row(
-            children: [
-              const SizedBox(width: 10),
-              Flexible(
-                child: Text(
-                  strDocumentDetails,
-                  style: TextStyle(color: white, fontSize: Utils().getFontSize(context), fontFamily: 'Montserrat-Black'),
-                ),
+        Row(
+          children: [
+            const SizedBox(width: 10),
+            Flexible(
+              child: Text(
+                strDocumentDetails,
+                style: TextStyle(color: white, fontSize: Utils().getFontSize(context), fontFamily: 'Montserrat-Black'),
               ),
-              const SizedBox(width: 10),
-              Container(
-
-                child: CircularProgressIndicatorWidget(
-                  questionIndex: provider.questionIndex,
-                  model: provider.userProfileModel,
-                  level: '',
-                  percentage: progressPercentage,
-                  progressValue: taskCompletePercentage,
-                  progressTypeValue: '',
-                  docFillPercentage: docFillPercentage,
-                  dotLegnth: 0.1,
-                  dotPosition: Utils().getDotPosition(provider.questionIndex),
-                ),
-              ),
-              const SizedBox(width: 10),
-            ],
-          ),
+            ),
+            const SizedBox(width: 10),
+            CircularProgressIndicatorWidget(
+              questionIndex: provider.questionIndex,
+              model: provider.userProfileModel,
+              level: '',
+              percentage: progressPercentage,
+              progressValue: taskCompletePercentage,
+              progressTypeValue: '',
+              docFillPercentage: docFillPercentage,
+              dotLegnth: 0.1,
+              dotPosition: Utils().getDotPosition(provider.questionIndex),
+            ),
+            const SizedBox(width: 10),
+          ],
         ),
         const SizedBox(height: 20),
         _buildQuestionSeries(provider),
@@ -357,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
           userProfileModel = await Utils().pickImage(userProfileModel);
           if (userProfileModel.imageFile != null) {
             _navigateToPhotoPlanningScreen(
-                context, userProfileModel.imageFile!, provider);
+                 userProfileModel.imageFile!, provider);
           }
         },
       );
@@ -365,7 +353,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container();
   }
 
-  void _navigateToPhotoPlanningScreen(BuildContext context, File imageFile,
+  void _navigateToPhotoPlanningScreen( File imageFile,
       UserQuizzDataProvider provider) async {
     var result = await Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => PhotoPlanningScreen(
